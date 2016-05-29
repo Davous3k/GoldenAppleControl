@@ -1,0 +1,20 @@
+name: ${project.artifactId}
+main: net.terrocidepvp.goldenapplecontrol.Main
+version: ${project.version}
+softdepend: [MVdWPlaceholderAPI]
+author: Terrobility
+description: ${project.description}
+website: https://terrocidepvp.net/
+commands:
+    gapple:
+        aliases: [goldenapplecontrol, gac, goldenapple, gapplecooldown, gcd]
+        description: "Shows your remaining golden apple cooldown."
+permissions:
+    goldenapplecontrol.bypass:
+        description: "Allows you to consume golden apples without any restrictions."
+    goldenapplecontrol.use:
+        description: "Allows you to use '/gapple' to show the remaining cooldown duration."
+        default: op
+    goldenapplecontrol.reload:
+        description: "Allows you to use '/gapple reload' for reloading the configuration."
+        default: op

@@ -1,0 +1,103 @@
+# GoldenAppleControl by Terrobility
+# Made with loads of love (and maybe a bit of salt)! <3
+#
+# x=x=x=x=x=x=x=x=x
+# | CONFIGURATION |
+# x=x=x=x=x=x=x=x=x
+# Please don't change the config version.
+config-version: 7
+
+hooks:
+    # Allows access to {goldenapplecooldown} and {enchantedgoldenapplecooldown} in plugins like ActionBar, FeatherBoard, ConditionPerms etc.
+    # https://www.spigotmc.org/resources/mvdwplaceholderapi.11182/
+    mvdw-placeholderapi: true
+
+# Custom cooldowns for players using permission nodes. They follow this format: "goldenapplecooldown.{listedbelow}".
+permission-nodes:
+    example1:
+        # These cooldowns override the ones in the "items" part of the config below.
+        golden-apple-duration: 5
+    # If you had goldenapplecontrol.example1, it would stop checking since it already found a match going through the config top-to-bottom.
+    # It wouldn't stop checking for enchanted golden apples since it hasn't found a valid match.
+    # If it can't find a match, it uses the duration from the "items" section below.
+    example2:
+        golden-apple-duration: 10
+        enchanted-golden-apple-duration: 50
+
+plugin-messages:
+    prefix: "&7[&eGolden&6Apple&fControl&7] "
+    no-permission: "&cYou don't have permission."
+    no-active-cooldowns: "&cYou don't have any active cooldowns."
+    # Shows remaining time when a player has "goldenapplecontrol.use" permission node and does "/gapple".
+    remaining-time:
+        - "&5\u2588\u2588\u2588\u2588&e\u2588\u2588&5\u2588\u2588"
+        - "&5\u2588\u2588\u2588\u2588&e\u2588&5\u2588\u2588\u2588 &6Golden apple&7:"
+        - "&5\u2588\u2588&6\u2588\u2588\u2588\u2588&5\u2588\u2588 &c%GOLDENAPPLE%"
+        - "&5\u2588&6\u2588\u2588&f\u2588&6\u2588\u2588\u2588&5\u2588"
+        - "&5\u2588&6\u2588&f\u2588&6\u2588\u2588\u2588\u2588&5\u2588"
+        - "&5\u2588&6\u2588\u2588\u2588\u2588\u2588\u2588&5\u2588 &eEnchanted golden apple&7:"
+        - "&5\u2588&6\u2588\u2588\u2588\u2588\u2588\u2588&5\u2588 &c%ENCHANTEDGOLDENAPPLE%"
+        - "&5\u2588\u2588&6\u2588\u2588\u2588\u2588&5\u2588\u2588"
+
+items:
+    golden-apple:
+        cooldown:
+            enabled: true
+            duration: 30
+            # Display numbers like "5401 seconds" as "1 hour 30 minutes 1 second".
+            use-formatted-time: true
+            # Choose whether you want the expired message to appear.
+            use-expired-message: true
+            messages:
+                consume:
+                    - "&7You can't eat another &6golden apple&7 for &c%TIME%&7."
+                    - "&2Purchase a rank at &astore.examplecraft.com &2to bypass cooldowns!"
+                cooldown:
+                    - "&7Wait &c%TIME%&7 before eating another &6golden apple&7!"
+                expired:
+                    - "&7You may now eat another &6golden apple&7."
+        consumption-control:
+            enabled: true
+            # Select how much hunger the player restores upon consumption.
+            # Measured in half-shanks in the hunger bar. Whole numbers please!
+            food-level: 4
+            # Select how much saturation you get upon consumption.
+            saturation: 9.6
+            # TYPE:DURATION(TICKS):AMPLIFIER(LEVEL-1)
+            # A list of types can be found here: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/potion/PotionEffectType.html
+            # e.g. REGENERATION:20:2 would give the player regeneration for 1 second (20 ticks). It would be level 3 because the amplifier = level minus one.
+            effects:
+                - ABSORPTION:2400:0
+                - REGENERATION:100:1
+
+    enchanted-golden-apple:
+        cooldown:
+            enabled: true
+            duration: 90
+            # Display numbers like "5401 seconds" as "1 hour 30 minutes 1 second".
+            use-formatted-time: true
+            # Choose whether you want the expired message to appear.
+            use-expired-message: true
+            messages:
+                consume:
+                    - "&7You can't eat another &eenchanted golden apple&7 for &c%TIME%&7."
+                    - "&2Purchase a rank at &astore.examplecraft.com &2to bypass cooldowns!"
+                cooldown:
+                    - "&7Wait &c%TIME%&7 before eating another &eenchanted golden apple&7!"
+                expired:
+                    - "&7You may now eat another &eenchanted golden apple&7."
+        consumption-control:
+            enabled: true
+            # Select how much hunger the player restores upon consumption.
+            # Measured in half-shanks in the hunger bar. Whole numbers please!
+            food-level: 4
+            # Select how much saturation you get upon consumption.
+            saturation: 9.6
+            # TYPE:DURATION(TICKS):AMPLIFIER(LEVEL-1)
+            # A list of types can be found here: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/potion/PotionEffectType.html
+            # e.g. REGENERATION:20:2 would give the player regeneration for 1 second (20 ticks). It would be level 3 because the amplifier = level minus one.
+            effects:
+                - ABSORPTION:2400:0
+                - REGENERATION:600:4
+                - DAMAGE_RESISTANCE:6000:0
+                - FIRE_RESISTANCE:6000:0
