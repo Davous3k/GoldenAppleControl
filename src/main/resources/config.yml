@@ -40,62 +40,51 @@ plugin-messages:
         - "&5\u2588\u2588&6\u2588\u2588\u2588\u2588&5\u2588\u2588"
 
 items:
-    golden-apple:
+    whatever-you-want:
+        material: GOLDEN_APPLE
+        data: 0
         cooldown:
             enabled: true
             duration: 30
-            # Display numbers like "5401 seconds" as "1 hour 30 minutes 1 second".
             use-formatted-time: true
-            # Choose whether you want the expired message to appear.
             use-expired-message: true
-            messages:
-                consume:
-                    - "&7You can't eat another &6golden apple&7 for &c%TIME%&7."
-                    - "&2Purchase a rank at &astore.examplecraft.com &2to bypass cooldowns!"
-                cooldown:
-                    - "&7Wait &c%TIME%&7 before eating another &6golden apple&7!"
-                expired:
-                    - "&7You may now eat another &6golden apple&7."
+            consume-message:
+            - "&7You can't eat another &6golden apple&7 for &c%TIME%&7."
+            - "&2Purchase a rank at &astore.examplecraft.com &2to bypass cooldowns!"
+            cooldown-message:
+            - "&7Wait &c%TIME%&7 before eating another &6golden apple&7!"
+            expired-message:
+            - "&7You may now eat another &6golden apple&7."
         consumption-control:
             enabled: true
-            # Select how much hunger the player restores upon consumption.
-            # Measured in half-shanks in the hunger bar. Whole numbers please!
+            # The food level is measured in half-shanks in the hunger bar. Whole numbers please.
             food-level: 4
-            # Select how much saturation you get upon consumption.
             saturation: 9.6
             # TYPE:DURATION(TICKS):AMPLIFIER(LEVEL-1)
             # A list of types can be found here: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/potion/PotionEffectType.html
             # e.g. REGENERATION:20:2 would give the player regeneration for 1 second (20 ticks). It would be level 3 because the amplifier = level minus one.
             effects:
-                - ABSORPTION:2400:0
-                - REGENERATION:100:1
-
-    enchanted-golden-apple:
+            - ABSORPTION:2400:0
+            - REGENERATION:100:1
+    make-sure-its-not-already-used:
+        material: GOLDEN_APPLE
+        data: 1
         cooldown:
             enabled: true
-            duration: 90
-            # Display numbers like "5401 seconds" as "1 hour 30 minutes 1 second".
+            duration: 30
             use-formatted-time: true
-            # Choose whether you want the expired message to appear.
             use-expired-message: true
-            messages:
-                consume:
-                    - "&7You can't eat another &eenchanted golden apple&7 for &c%TIME%&7."
-                    - "&2Purchase a rank at &astore.examplecraft.com &2to bypass cooldowns!"
-                cooldown:
-                    - "&7Wait &c%TIME%&7 before eating another &eenchanted golden apple&7!"
-                expired:
-                    - "&7You may now eat another &eenchanted golden apple&7."
+            consume-message:
+            - "&7You can't eat another &6golden apple&7 for &c%TIME%&7."
+            - "&2Purchase a rank at &astore.examplecraft.com &2to bypass cooldowns!"
+            cooldown-message:
+            - "&7Wait &c%TIME%&7 before eating another &6golden apple&7!"
+            expired-message:
+            - "&7You may now eat another &6golden apple&7."
         consumption-control:
             enabled: true
-            # Select how much hunger the player restores upon consumption.
-            # Measured in half-shanks in the hunger bar. Whole numbers please!
             food-level: 4
-            # Select how much saturation you get upon consumption.
             saturation: 9.6
-            # TYPE:DURATION(TICKS):AMPLIFIER(LEVEL-1)
-            # A list of types can be found here: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/potion/PotionEffectType.html
-            # e.g. REGENERATION:20:2 would give the player regeneration for 1 second (20 ticks). It would be level 3 because the amplifier = level minus one.
             effects:
                 - ABSORPTION:2400:0
                 - REGENERATION:600:4
