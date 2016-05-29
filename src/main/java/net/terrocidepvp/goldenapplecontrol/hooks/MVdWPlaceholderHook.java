@@ -1,20 +1,25 @@
 package net.terrocidepvp.goldenapplecontrol.hooks;
 
+import net.terrocidepvp.goldenapplecontrol.GoldenAppleControl;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
 import be.maximvdw.placeholderapi.PlaceholderAPI;
 import be.maximvdw.placeholderapi.PlaceholderReplaceEvent;
 import be.maximvdw.placeholderapi.PlaceholderReplacer;
-import net.terrocidepvp.goldenapplecontrol.Main;
 import net.terrocidepvp.goldenapplecontrol.handlers.EnchantedGoldenAppleCooldowns;
 import net.terrocidepvp.goldenapplecontrol.handlers.GoldenAppleCooldowns;
 import net.terrocidepvp.goldenapplecontrol.utils.TimeUtil;
 
-public class MVdWPlaceholderHook
-{
-    public static void hook(Main plugin)
-    {
+public class MVdWPlaceholderHook {
+
+    private final GoldenAppleControl plugin;
+
+    public MVdWPlaceholderHook(final GoldenAppleControl plugin) {
+        this.plugin = plugin;
+    }
+
+    public void hook() {
         PlaceholderAPI.registerPlaceholder(plugin, "goldenapplecooldown",
                 new PlaceholderReplacer() {
                     @Override
@@ -31,11 +36,10 @@ public class MVdWPlaceholderHook
                         if (offlinePlayer == null) {
                             return "Player needed!";
                         }
-                        
+
                         final double goldenAppleCd = GoldenAppleCooldowns.getHandler().getGoldenAppleCD(player.getUniqueId());
                         if (!(goldenAppleCd == 0.0D)) {
-                            final String goldenAppleCdString = TimeUtil.formatTime(GoldenAppleCooldowns.getHandler().getGoldenAppleCD(player.getUniqueId()));
-                            return goldenAppleCdString;
+                            return TimeUtil.formatTime(GoldenAppleCooldowns.getHandler().getGoldenAppleCD(player.getUniqueId()));
                         }
                         return "&4Inactive";
                     }
@@ -56,11 +60,10 @@ public class MVdWPlaceholderHook
                         if (offlinePlayer == null) {
                             return "Player needed!";
                         }
-                        
+
                         final double enchantedGoldenAppleCd = EnchantedGoldenAppleCooldowns.getHandler().getEnchantedGoldenAppleCD(player.getUniqueId());
                         if (!(enchantedGoldenAppleCd == 0.0D)) {
-                            final String enchantedGoldenAppleCdString = TimeUtil.formatTime(EnchantedGoldenAppleCooldowns.getHandler().getEnchantedGoldenAppleCD(player.getUniqueId()));
-                            return enchantedGoldenAppleCdString;
+                            return TimeUtil.formatTime(EnchantedGoldenAppleCooldowns.getHandler().getEnchantedGoldenAppleCD(player.getUniqueId()));
                         }
                         return "&4Inactive";
                     }

@@ -1,24 +1,21 @@
 package net.terrocidepvp.goldenapplecontrol.commands;
 
+import net.terrocidepvp.goldenapplecontrol.GoldenAppleControl;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import net.terrocidepvp.goldenapplecontrol.Main;
 import net.terrocidepvp.goldenapplecontrol.utils.ColorCodeUtil;
 
-// CommandExecutor ensures that commands carry over from the main class.
 public class CommandManager implements CommandExecutor {
-    // What to do when a player types a command.
+
     @Override
     public boolean onCommand(final CommandSender sender, final Command cmd, final String label, final String[] args) {
-        // Initialise the prefix.
-        final String prefix = ColorCodeUtil.translateAlternateColorCodes('&',
-                Main.getInstance().getConfig().getString("plugin-messages.prefix"));
-        // Initialise the no permission message.
-        final String noPerms = ColorCodeUtil.translateAlternateColorCodes('&',
-                Main.getInstance().getConfig().getString("plugin-messages.no-permission"));
+
+        final String prefix = ColorCodeUtil.translateAlternateColorCodes('&', GoldenAppleControl.getInstance().getConfig().getString("plugin-messages.prefix"));
+        final String noPerms = ColorCodeUtil.translateAlternateColorCodes('&', GoldenAppleControl.getInstance().getConfig().getString("plugin-messages.no-permission"));
         // Checks for the right commands in case something happens.
         if (!cmd.getName().equalsIgnoreCase("gapple") && !cmd.getName().equalsIgnoreCase("goldenapplecontrol")
                 && !cmd.getName().equalsIgnoreCase("gac") && !cmd.getName().equalsIgnoreCase("goldenapple")
@@ -56,5 +53,13 @@ public class CommandManager implements CommandExecutor {
             }
         }
         return false;
+    }
+
+    public static boolean onReload(final CommandSender sender) {
+        final String prefix = ColorCodeUtil.translateAlternateColorCodes('&',
+                GoldenAppleControl.getInstance().getConfig().getString("plugin-messages.prefix"));
+        sender.sendMessage(prefix + ChatColor.GRAY + "Attempting to reload config...");
+        GoldenAppleControl.getInstance().reloadConfig();
+        return true;
     }
 }

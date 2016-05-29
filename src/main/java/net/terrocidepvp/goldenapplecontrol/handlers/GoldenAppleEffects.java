@@ -2,6 +2,7 @@ package net.terrocidepvp.goldenapplecontrol.handlers;
 
 import java.util.List;
 
+import net.terrocidepvp.goldenapplecontrol.GoldenAppleControl;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
@@ -10,17 +11,15 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-import net.terrocidepvp.goldenapplecontrol.Main;
-
 public class GoldenAppleEffects {
     @SuppressWarnings("deprecation")
     public static void effectsHandler(final PlayerItemConsumeEvent event) {
         // Set up the config.
-        final int foodLevel = Main.getInstance().getConfig()
+        final int foodLevel = GoldenAppleControl.getInstance().getConfig()
                 .getInt("items.golden-apple.consumption-control.food-level");
         final float saturation = Float
-                .valueOf(Main.getInstance().getConfig().getString("items.golden-apple.consumption-control.saturation"));
-        final List<String> effects = Main.getInstance().getConfig()
+                .valueOf(GoldenAppleControl.getInstance().getConfig().getString("items.golden-apple.consumption-control.saturation"));
+        final List<String> effects = GoldenAppleControl.getInstance().getConfig()
                 .getStringList("items.golden-apple.consumption-control.effects");
         // Initialise variables.
         int duration;
@@ -35,7 +34,7 @@ public class GoldenAppleEffects {
 
         final ItemStack itemInHand;
         final boolean itemInMainHand;
-        if (!(Main.versionAsDouble <= 1.8)) {
+        if (!(GoldenAppleControl.versionAsDouble <= 1.8)) {
             if (player.getInventory().getItemInMainHand().getType() == Material.GOLDEN_APPLE) {
                 itemInHand = player.getInventory().getItemInMainHand();
                 itemInMainHand = true;
@@ -57,7 +56,7 @@ public class GoldenAppleEffects {
         // Check if there's only one item because it can't use the setAmount()
         // thing to set it to zero.
         if (itemInHand.getAmount() == 1) {
-            if (Main.versionAsDouble >= 1.9) {
+            if (GoldenAppleControl.versionAsDouble >= 1.9) {
                 if (itemInMainHand) {
                     player.getInventory().setItemInMainHand(air);
                 } else {

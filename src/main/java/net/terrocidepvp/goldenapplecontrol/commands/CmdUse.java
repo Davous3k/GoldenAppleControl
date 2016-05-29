@@ -2,10 +2,10 @@ package net.terrocidepvp.goldenapplecontrol.commands;
 
 import java.util.List;
 
+import net.terrocidepvp.goldenapplecontrol.GoldenAppleControl;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import net.terrocidepvp.goldenapplecontrol.Main;
 import net.terrocidepvp.goldenapplecontrol.handlers.EnchantedGoldenAppleCooldowns;
 import net.terrocidepvp.goldenapplecontrol.handlers.GoldenAppleCooldowns;
 import net.terrocidepvp.goldenapplecontrol.utils.ColorCodeUtil;
@@ -16,10 +16,10 @@ public class CmdUse {
     public static boolean onUse(final CommandSender sender) {
         // Set up the prefix.
         final String prefix = ColorCodeUtil.translateAlternateColorCodes('&',
-                Main.getInstance().getConfig().getString("plugin-messages.prefix"));
+                GoldenAppleControl.getInstance().getConfig().getString("plugin-messages.prefix"));
         // Set up a List<String> for the RemainingTime message in the
         // configuration file.
-        final List<String> remainingTime = Main.getInstance().getConfig()
+        final List<String> remainingTime = GoldenAppleControl.getInstance().getConfig()
                 .getStringList("plugin-messages.remaining-time");
         // Initialise the golden apple cooldown.
         final double goldenAppleCd = GoldenAppleCooldowns.getHandler()
@@ -30,7 +30,7 @@ public class CmdUse {
         // Check if the cooldowns haven't expired.
         if (goldenAppleCd == 0 & enchantedGoldenAppleCd == 0) {
             sender.sendMessage(prefix + ColorCodeUtil.translateAlternateColorCodes('&',
-                    Main.getInstance().getConfig().getString("plugin-messages.no-active-cooldowns")));
+                    GoldenAppleControl.getInstance().getConfig().getString("plugin-messages.no-active-cooldowns")));
             return true;
         }
 

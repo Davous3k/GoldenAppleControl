@@ -1,7 +1,10 @@
 package net.terrocidepvp.goldenapplecontrol.listeners;
 
-import java.util.List;
-
+import net.terrocidepvp.goldenapplecontrol.GoldenAppleControl;
+import net.terrocidepvp.goldenapplecontrol.handlers.GoldenAppleCooldowns;
+import net.terrocidepvp.goldenapplecontrol.handlers.GoldenAppleEffects;
+import net.terrocidepvp.goldenapplecontrol.utils.ColorCodeUtil;
+import net.terrocidepvp.goldenapplecontrol.utils.TimeUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -12,11 +15,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitScheduler;
 
-import net.terrocidepvp.goldenapplecontrol.Main;
-import net.terrocidepvp.goldenapplecontrol.handlers.GoldenAppleCooldowns;
-import net.terrocidepvp.goldenapplecontrol.handlers.GoldenAppleEffects;
-import net.terrocidepvp.goldenapplecontrol.utils.ColorCodeUtil;
-import net.terrocidepvp.goldenapplecontrol.utils.TimeUtil;
+import java.util.List;
 
 public class GoldenAppleConsumeListener implements Listener {
     // Make sure the plugin variable works.
@@ -35,22 +34,22 @@ public class GoldenAppleConsumeListener implements Listener {
         final BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
         // Set up messages.
         final String prefix = ColorCodeUtil.translateAlternateColorCodes('&',
-                Main.getInstance().getConfig().getString("plugin-messages.prefix"));
-        final List<String> goldenAppleConsumeMessage = Main.getInstance().getConfig()
+                GoldenAppleControl.getInstance().getConfig().getString("plugin-messages.prefix"));
+        final List<String> goldenAppleConsumeMessage = GoldenAppleControl.getInstance().getConfig()
                 .getStringList("items.golden-apple.cooldown.messages.consume");
-        final List<String> goldenAppleCooldownMessage = Main.getInstance().getConfig()
+        final List<String> goldenAppleCooldownMessage = GoldenAppleControl.getInstance().getConfig()
                 .getStringList("items.golden-apple.cooldown.messages.cooldown");
-        final List<String> goldenAppleExpiredMessage = Main.getInstance().getConfig()
+        final List<String> goldenAppleExpiredMessage = GoldenAppleControl.getInstance().getConfig()
                 .getStringList("items.golden-apple.cooldown.messages.expired");
-        final Boolean goldenAppleEnabled = Main.getInstance().getConfig()
+        final Boolean goldenAppleEnabled = GoldenAppleControl.getInstance().getConfig()
                 .getBoolean("items.golden-apple.cooldown.enabled");
-        final Boolean goldenAppleUseFormattedTime = Main.getInstance().getConfig()
+        final Boolean goldenAppleUseFormattedTime = GoldenAppleControl.getInstance().getConfig()
                 .getBoolean("items.golden-apple.cooldown.use-formatted-time");
-        final Boolean goldenAppleUseExpiredMessage = Main.getInstance().getConfig()
+        final Boolean goldenAppleUseExpiredMessage = GoldenAppleControl.getInstance().getConfig()
                 .getBoolean("items.golden-apple.cooldown.use-expired-message");
-        final Boolean goldenAppleUseConsumptionControl = Main.getInstance().getConfig()
+        final Boolean goldenAppleUseConsumptionControl = GoldenAppleControl.getInstance().getConfig()
                 .getBoolean("items.golden-apple.consumption-control.enabled");
-        Long goldenAppleDuration = Main.getInstance().getConfig().getLong("items.golden-apple.cooldown.duration");
+        Long goldenAppleDuration = GoldenAppleControl.getInstance().getConfig().getLong("items.golden-apple.cooldown.duration");
         // Initialise the golden apple ItemStack.
         final ItemStack goldenApple = new ItemStack(Material.GOLDEN_APPLE, 1, (short) 0);
 
@@ -64,18 +63,18 @@ public class GoldenAppleConsumeListener implements Listener {
             if (!player.hasPermission("goldenapplecontrol.bypass")) {
                 if (goldenAppleEnabled) {
                     // If the cooldown is active, do the following.
-                    for (String everything : Main.getInstance().getConfig().getKeys(true)) {
+                    for (String everything : GoldenAppleControl.getInstance().getConfig().getKeys(true)) {
                         if (everything == null) {
                             continue;
                         }
                         if (everything.startsWith("permission-nodes.")) {
                             everything = everything.substring(17);
                             if (player.hasPermission("goldenapplecontrol." + everything)) {
-                                if (Main.getInstance().getConfig()
+                                if (GoldenAppleControl.getInstance().getConfig()
                                         .get("permission-nodes." + everything + ".golden-apple-duration") == null) {
                                     continue;
                                 }
-                                goldenAppleDuration = Main.getInstance().getConfig()
+                                goldenAppleDuration = GoldenAppleControl.getInstance().getConfig()
                                         .getLong("permission-nodes." + everything + ".golden-apple-duration");
                                 break;
                             }

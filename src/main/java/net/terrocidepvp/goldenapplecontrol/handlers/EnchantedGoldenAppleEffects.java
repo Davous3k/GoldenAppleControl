@@ -10,17 +10,17 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-import net.terrocidepvp.goldenapplecontrol.Main;
+import net.terrocidepvp.goldenapplecontrol.GoldenAppleControl;
 
 public class EnchantedGoldenAppleEffects {
     @SuppressWarnings("deprecation")
     public static void effectsHandler(final PlayerItemConsumeEvent event) {
         // Set up the config.
-        final int foodLevel = Main.getInstance().getConfig()
+        final int foodLevel = GoldenAppleControl.getInstance().getConfig()
                 .getInt("items.enchanted-golden-apple.consumption-control.food-level");
-        final float saturation = Float.valueOf(Main.getInstance().getConfig()
+        final float saturation = Float.valueOf(GoldenAppleControl.getInstance().getConfig()
                 .getString("items.enchanted-golden-apple.consumption-control.saturation"));
-        final List<String> effects = Main.getInstance().getConfig()
+        final List<String> effects = GoldenAppleControl.getInstance().getConfig()
                 .getStringList("items.enchanted-golden-apple.consumption-control.effects");
         // Initialise variables.
         int duration;
@@ -35,7 +35,7 @@ public class EnchantedGoldenAppleEffects {
 
         final ItemStack itemInHand;
         final boolean itemInMainHand;
-        if (!(Main.versionAsDouble <= 1.8)) {
+        if (!(GoldenAppleControl.versionAsDouble <= 1.8)) {
             if (player.getInventory().getItemInMainHand().getType() == Material.GOLDEN_APPLE) {
                 itemInHand = player.getInventory().getItemInMainHand();
                 itemInMainHand = true;
@@ -57,7 +57,7 @@ public class EnchantedGoldenAppleEffects {
         // Check if there's only one item because it can't use the setAmount()
         // thing to set it to zero.
         if (itemInHand.getAmount() == 1) {
-            if (Main.versionAsDouble >= 1.9) {
+            if (GoldenAppleControl.versionAsDouble >= 1.9) {
                 if (itemInMainHand) {
                     player.getInventory().setItemInMainHand(air);
                 } else {

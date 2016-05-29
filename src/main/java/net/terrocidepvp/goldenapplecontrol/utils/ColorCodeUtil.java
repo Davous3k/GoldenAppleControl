@@ -1,8 +1,7 @@
 package net.terrocidepvp.goldenapplecontrol.utils;
 
-// Thread-safe alternative to accessing Bukkit's ChatColor.
-
 public class ColorCodeUtil {
+
     public static String translateAlternateColorCodes(char altColorChar, String textToTranslate) {
         final char[] b = textToTranslate.toCharArray();
         for (int i = 0; i < b.length - 1; i++) {
@@ -16,4 +15,5 @@ public class ColorCodeUtil {
         }
         return new String(b);
     }
+
 }
