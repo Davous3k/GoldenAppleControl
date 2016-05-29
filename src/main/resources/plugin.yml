@@ -1,5 +1,5 @@
 name: ${project.artifactId}
-main: net.terrocidepvp.goldenapplecontrol.GoldenAppleControlenAppleControl
+main: net.terrocidepvp.goldenapplecontrol.GoldenAppleControl
 version: ${project.version}
 softdepend: [MVdWPlaceholderAPI]
 author: Terrobility
