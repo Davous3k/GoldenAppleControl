@@ -123,21 +123,21 @@ public class ConsumeListener implements Listener {
                             int duration;
                             try {
                                 duration = Math.min(Integer.parseInt(inf[1]), Integer.MAX_VALUE);
-                            } catch (final NumberFormatException e) {
+                            } catch (NumberFormatException e) {
                                 duration = Integer.MAX_VALUE;
                             }
                             int amplifier;
                             try {
                                 amplifier = Math.min(Integer.parseInt(inf[2]), 255);
-                            } catch (final NumberFormatException e) {
+                            } catch (NumberFormatException e) {
                                 amplifier = 255;
                             }
                             if (!player.hasPotionEffect(type.get())) {
-                                final PotionEffect effect = new PotionEffect(type.get(), duration, amplifier);
+                                PotionEffect effect = new PotionEffect(type.get(), duration, amplifier);
                                 player.addPotionEffect(effect);
                             } else {
                                 player.removePotionEffect(type.get());
-                                final PotionEffect effect = new PotionEffect(type.get(), duration, amplifier);
+                                PotionEffect effect = new PotionEffect(type.get(), duration, amplifier);
                                 player.addPotionEffect(effect);
                             }
                         }
