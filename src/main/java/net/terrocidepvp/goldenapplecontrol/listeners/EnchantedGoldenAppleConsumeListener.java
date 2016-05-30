@@ -90,7 +90,7 @@ public class EnchantedGoldenAppleConsumeListener implements Listener {
                         // in the configuration file.
                         if (enchantedGoldenAppleUseFormattedTime) {
                             for (String str : enchantedGoldenAppleCooldownMessage) {
-                                str = str.replaceAll("%TIME%", TimeUtil.formatTime(EnchantedGoldenAppleCooldowns
+                                str = str.replaceAll("%TIME%", TimeUtil.formatTime(formattedTime, EnchantedGoldenAppleCooldowns
                                         .getHandler().getEnchantedGoldenAppleCD(player.getUniqueId())));
                                 player.sendMessage(prefix + ColorCodeUtil.translateAlternateColorCodes('&', str));
                             }
@@ -113,7 +113,7 @@ public class EnchantedGoldenAppleConsumeListener implements Listener {
                             enchantedGoldenAppleDuration);
                     if (enchantedGoldenAppleUseFormattedTime) {
                         for (String str : enchantedGoldenAppleConsumeMessage) {
-                            str = str.replaceAll("%TIME%", TimeUtil.formatTime(EnchantedGoldenAppleCooldowns
+                            str = str.replaceAll("%TIME%", TimeUtil.formatTime(formattedTime, EnchantedGoldenAppleCooldowns
                                     .getHandler().getEnchantedGoldenAppleCD(player.getUniqueId())));
                             player.sendMessage(prefix + ColorCodeUtil.translateAlternateColorCodes('&', str));
                         }

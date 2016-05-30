@@ -1,21 +1,22 @@
 package net.terrocidepvp.goldenapplecontrol.handlers;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class CoolDown {
 
-    private double duration;
+    private long duration;
     private boolean useFormattedTime;
     private boolean useExpiredMsg;
     private List<String> consumeMsg;
     private List<String> coolDownMsg;
     private List<String> expiredMsg;
 
-    private ConcurrentHashMap<UUID, Long> cooldowns = new ConcurrentHashMap<>(8, 0.9f, 1);
+    private Map<UUID, Long> cooldowns = new ConcurrentHashMap<>(8, 0.9f, 1);
 
-    public CoolDown(double duration,
+    public CoolDown(long duration,
                     boolean useFormattedTime,
                     boolean useExpiredMsg,
                     List<String> consumeMsg,
@@ -29,7 +30,7 @@ public class CoolDown {
         this.expiredMsg = expiredMsg;
     }
 
-    public double getDuration() {
+    public long getDuration() {
         return duration;
     }
 
@@ -53,7 +54,7 @@ public class CoolDown {
         return expiredMsg;
     }
 
-    public ConcurrentHashMap<UUID, Long> getCooldowns() {
+    public Map<UUID, Long> getCooldowns() {
         return cooldowns;
     }
 }

@@ -2,10 +2,13 @@ package net.terrocidepvp.goldenapplecontrol.utils;
 
 public class TimeUtil {
 
-    public static String formatTime(double timeoutSeconds) {
-        if (timeoutSeconds == 0.0d) {
+    public static String formatTime(boolean isFormattedTime, double timeoutSeconds) {
+        if (!isFormattedTime)
+            return Double.toString(timeoutSeconds);
+
+        if (timeoutSeconds == 0.0d)
             return ("0 seconds");
-        }
+
         final long days = (long)timeoutSeconds / 86400;
         final long hours = (long)timeoutSeconds / 3600 % 24;
         final long minutes = (long)timeoutSeconds / 60 % 60;

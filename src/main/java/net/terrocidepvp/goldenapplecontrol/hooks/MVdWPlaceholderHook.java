@@ -39,7 +39,7 @@ public class MVdWPlaceholderHook {
 
                         final double goldenAppleCd = GoldenAppleCooldowns.getHandler().getGoldenAppleCD(player.getUniqueId());
                         if (!(goldenAppleCd == 0.0D)) {
-                            return TimeUtil.formatTime(GoldenAppleCooldowns.getHandler().getGoldenAppleCD(player.getUniqueId()));
+                            return TimeUtil.formatTime(formattedTime, GoldenAppleCooldowns.getHandler().getGoldenAppleCD(player.getUniqueId()));
                         }
                         return "&4Inactive";
                     }
@@ -63,7 +63,7 @@ public class MVdWPlaceholderHook {
 
                         final double enchantedGoldenAppleCd = EnchantedGoldenAppleCooldowns.getHandler().getEnchantedGoldenAppleCD(player.getUniqueId());
                         if (!(enchantedGoldenAppleCd == 0.0D)) {
-                            return TimeUtil.formatTime(EnchantedGoldenAppleCooldowns.getHandler().getEnchantedGoldenAppleCD(player.getUniqueId()));
+                            return TimeUtil.formatTime(formattedTime, EnchantedGoldenAppleCooldowns.getHandler().getEnchantedGoldenAppleCD(player.getUniqueId()));
                         }
                         return "&4Inactive";
                     }

@@ -87,7 +87,7 @@ public class GoldenAppleConsumeListener implements Listener {
                         if (goldenAppleUseFormattedTime) {
                             for (String str : goldenAppleCooldownMessage) {
                                 str = str.replaceAll("%TIME%", TimeUtil.formatTime(
-                                        GoldenAppleCooldowns.getHandler().getGoldenAppleCD(player.getUniqueId())));
+                                        formattedTime, GoldenAppleCooldowns.getHandler().getGoldenAppleCD(player.getUniqueId())));
                                 player.sendMessage(prefix + ColorCodeUtil.translateAlternateColorCodes('&', str));
                             }
                         } else {
@@ -109,7 +109,7 @@ public class GoldenAppleConsumeListener implements Listener {
                     if (goldenAppleUseFormattedTime) {
                         for (String str : goldenAppleConsumeMessage) {
                             str = str.replaceAll("%TIME%", TimeUtil.formatTime(
-                                    GoldenAppleCooldowns.getHandler().getGoldenAppleCD(player.getUniqueId())));
+                                    formattedTime, GoldenAppleCooldowns.getHandler().getGoldenAppleCD(player.getUniqueId())));
                             player.sendMessage(prefix + ColorCodeUtil.translateAlternateColorCodes('&', str));
                         }
                     } else {

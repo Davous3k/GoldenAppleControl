@@ -31,28 +31,28 @@ public class ItemManager {
             int confData = plugin.getConfig().getInt("items." + str + ".data");
 
             // Construct CoolDown object.
-            CoolDown coolDown = null;
+            Optional<CoolDown> coolDown = Optional.empty();
             if (plugin.getConfig().getBoolean("items." + str + ".cooldown.enabled")) {
-                coolDown = new CoolDown(plugin.getConfig().getDouble("items." + str + ".cooldown.duration"),
+                coolDown = Optional.of(new CoolDown(plugin.getConfig().getLong("items." + str + ".cooldown.duration"),
                         plugin.getConfig().getBoolean("items." + str + ".use-formatted-time"),
                         plugin.getConfig().getBoolean("items." + str + ".use-expired-message"),
                         t(plugin.getConfig().getStringList("items." + str + ".consume-message")),
                         t(plugin.getConfig().getStringList("items." + str + ".cooldown-message")),
-                        t(plugin.getConfig().getStringList("items." + str + ".expired-message")));
+                        t(plugin.getConfig().getStringList("items." + str + ".expired-message"))));
             }
 
-            String permissionNode = plugin.getConfig().getString("items." + str + ".permission");
+            Optional<String> permissionNode = Optional.ofNullable(plugin.getConfig().getString("items." + str + ".permission"));
 
             // Construct ConsumptionControl object.
-            ConsumptionControl consumptionControl = null;
+            Optional<ConsumptionControl> consumptionControl = Optional.empty();
             if (plugin.getConfig().getBoolean("items." + str + ".consumption-control.enabled")) {
-                consumptionControl = new ConsumptionControl(plugin.getConfig().getInt("items." + str + ".consumption-control.food-level"),
+                consumptionControl = Optional.of(new ConsumptionControl(plugin.getConfig().getInt("items." + str + ".consumption-control.food-level"),
                         Float.valueOf(plugin.getConfig().getString("items." + str + ".consumption-control.saturation")),
-                        plugin.getConfig().getStringList("items." + str + ".consumption-control.effects"));
+                        plugin.getConfig().getStringList("items." + str + ".consumption-control.effects")));
             }
 
             // Add the item to the set.
-            items.add(new Item(material, confData, permissionNode, coolDown, consumptionControl));
+            items.add(new Item(material, confData, permissionNode.orElseGet(null), coolDown.orElseGet(null), consumptionControl.orElseGet(null)));
         });
     }
 

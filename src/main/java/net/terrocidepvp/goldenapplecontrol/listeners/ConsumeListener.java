@@ -3,14 +3,19 @@ package net.terrocidepvp.goldenapplecontrol.listeners;
 import net.terrocidepvp.goldenapplecontrol.GoldenAppleControl;
 import net.terrocidepvp.goldenapplecontrol.handlers.ConsumptionControl;
 import net.terrocidepvp.goldenapplecontrol.handlers.CoolDown;
+import net.terrocidepvp.goldenapplecontrol.utils.TimeUtil;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
+import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
 
 public class ConsumeListener implements Listener {
 
@@ -31,17 +36,27 @@ public class ConsumeListener implements Listener {
 
         GoldenAppleControl.getInstance().getItemManager().getItems().stream().filter(item ->
                 (item.getMaterial() == eventItemMaterial && item.getData() == eventItemData)
+                        // If perm node is null or it isn't null but the player has perms.
                 && ((item.getPermissionNode() == null)
                         || (item.getPermissionNode() != null && player.hasPermission(item.getPermissionNode())))).forEach(item -> {
 
             Optional<CoolDown> coolDown = Optional.ofNullable(item.getCoolDown());
             if (coolDown.isPresent()) {
-                if (coolDown.get().getCooldowns().get(player.getUniqueId()) == null) {
-                    // TODO Set cooldown, display consume message, schedule expiry message with runnable
-                } else {
-                    // TODO Replace variables like %TIME% in the message
-                    coolDown.get().getCooldownMsg().forEach(player::sendMessage);
-                    event.setCancelled(true);
+
+                Optional<Map<UUID, Long>> cooldowns = Optional.ofNullable(coolDown.get().getCooldowns());
+                if (cooldowns.isPresent()) {
+                    boolean formattedTime = coolDown.get().isUseFormattedTime();
+                    double duration = getCooldown(cooldowns.get(), player.getUniqueId());
+                    if (duration != 0) {
+                        coolDown.get().getCooldownMsg().forEach(str -> player.sendMessage(str.replace("%TIME%", TimeUtil.formatTime(formattedTime, duration))));
+                        event.setCancelled(true);
+                    } else {
+                        setCooldown(cooldowns.get(), player.getUniqueId(), coolDown.get().getDuration());
+                        coolDown.get().getConsumeMsg().forEach(str -> player.sendMessage(str.replace("%TIME%", TimeUtil.formatTime(formattedTime, coolDown.get().getDuration()))));
+                        if (coolDown.get().isUseExpiredMsg()) {
+                            plugin.getServer().getScheduler().runTaskLater(plugin, () -> coolDown.get().getExpiredMsg().forEach(player::sendMessage), coolDown.get().getDuration());
+                        }
+                    }
                 }
             }
 
@@ -94,15 +109,65 @@ public class ConsumeListener implements Listener {
                         }
                     } else {
                         //noinspection deprecation
-                        player.getInventory().setItemInHand(new ItemStack(Material.AIR));
+                        player.getInventory().setItemInHand(new ItemStack(Material.AIR, 1, (short) 0));
                     }
                 }
 
-
-                // TODO Apply custom effects (if any) to the player
+                // Apply (or remove) potion effects to the player.
+                for (String potionEffects : consumptionControl.get().getEffects()) {
+                    String inf[] = potionEffects.split(":");
+                    if (inf.length == 3) {
+                        Optional<PotionEffectType> type = Optional.ofNullable(PotionEffectType.getByName(inf[0].toUpperCase()));
+                        if (type.isPresent()) {
+                            int duration;
+                            try {
+                                duration = Math.min(Integer.parseInt(inf[1]), Integer.MAX_VALUE);
+                            } catch (final NumberFormatException e) {
+                                duration = Integer.MAX_VALUE;
+                            }
+                            int amplifier;
+                            try {
+                                amplifier = Math.min(Integer.parseInt(inf[2]), 255);
+                            } catch (final NumberFormatException e) {
+                                amplifier = 255;
+                            }
+                            if (!player.hasPotionEffect(type.get())) {
+                                final PotionEffect effect = new PotionEffect(type.get(), duration, amplifier);
+                                player.addPotionEffect(effect);
+                            } else {
+                                player.removePotionEffect(type.get());
+                                final PotionEffect effect = new PotionEffect(type.get(), duration, amplifier);
+                                player.addPotionEffect(effect);
+                            }
+                        }
+                    }
+                }
 
             }
         });
 
+    }
+
+    public double getCooldown(Map<UUID, Long> cooldowns, UUID playerUuid) {
+        // TODO Set cooldown, display consume message, schedule expiry message with runnable
+        if (!cooldowns.containsKey(playerUuid))
+            return 0.0d;
+        double duration = cooldowns.get(playerUuid);
+        duration -= System.currentTimeMillis();
+        if (duration <= 0L) {
+            cooldowns.remove(playerUuid);
+            return 0.0d;
+        }
+        duration /= 1000d;
+        return Math.round(duration * 10) / 10.0d;
+    }
+
+    public void setCooldown(Map<UUID, Long> cooldowns, UUID playerUuid, long duration) {
+        if (cooldowns.containsKey(playerUuid)) {
+            cooldowns.remove(playerUuid);
+        }
+        long durationSeconds = System.currentTimeMillis();
+        durationSeconds += duration * 1000;
+        cooldowns.put(playerUuid, durationSeconds);
     }
 }

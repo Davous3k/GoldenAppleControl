@@ -36,9 +36,9 @@ public class CmdUse {
 
         // Convert the cooldowns to their string equivalent.
         String goldenAppleCdString = TimeUtil
-                .formatTime(GoldenAppleCooldowns.getHandler().getGoldenAppleCD(((Player) sender).getUniqueId()));
+                .formatTime(formattedTime, GoldenAppleCooldowns.getHandler().getGoldenAppleCD(((Player) sender).getUniqueId()));
         String enchantedGoldenAppleCdString = TimeUtil.formatTime(
-                EnchantedGoldenAppleCooldowns.getHandler().getEnchantedGoldenAppleCD(((Player) sender).getUniqueId()));
+                formattedTime, EnchantedGoldenAppleCooldowns.getHandler().getEnchantedGoldenAppleCD(((Player) sender).getUniqueId()));
         // Replace the golden apple cooldown with the word "Inactive" if it's
         // 0.0 seconds.
         if (goldenAppleCd == 0.0D) {
