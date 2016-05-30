@@ -13,7 +13,7 @@ public class CoolDown {
     private final List<String> coolDownMsg;
     private final List<String> expiredMsg;
 
-    private final ConcurrentHashMap<UUID, Long> coolDown = new ConcurrentHashMap<>(8, 0.9f, 1);
+    private final ConcurrentHashMap<UUID, Long> cooldowns = new ConcurrentHashMap<>(8, 0.9f, 1);
 
     public CoolDown(final double duration,
                     final boolean useFormattedTime,
@@ -53,7 +53,7 @@ public class CoolDown {
         return expiredMsg;
     }
 
-    public ConcurrentHashMap<UUID, Long> getCoolDown() {
-        return coolDown;
+    public ConcurrentHashMap<UUID, Long> getCooldowns() {
+        return cooldowns;
     }
 }

@@ -1,15 +1,22 @@
 package net.terrocidepvp.goldenapplecontrol.handlers;
 
 import net.terrocidepvp.goldenapplecontrol.GoldenAppleControl;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class ItemManager {
 
     private final GoldenAppleControl plugin;
     private final Set<Item> items = new HashSet<>();
+
+    public Set<Item> getItems() {
+        return items;
+    }
 
     public ItemManager(final GoldenAppleControl plugin) {
         this.plugin = plugin;
@@ -44,36 +51,37 @@ public class ItemManager {
                 coolDown = new CoolDown(plugin.getConfig().getDouble("items." + str + ".cooldown.duration"),
                                         plugin.getConfig().getBoolean("items." + str + ".use-formatted-time"),
                                         plugin.getConfig().getBoolean("items." + str + ".use-expired-message"),
-                                        plugin.getConfig().getStringList("items." + str + ".consume-message"),
-                                        plugin.getConfig().getStringList("items." + str + ".cooldown-message"),
-                                        plugin.getConfig().getStringList("items." + str + ".expired-message"));
+                                        t(plugin.getConfig().getStringList("items." + str + ".consume-message")),
+                                        t(plugin.getConfig().getStringList("items." + str + ".cooldown-message")),
+                                        t(plugin.getConfig().getStringList("items." + str + ".expired-message")));
             } else {
                 coolDown = null;
             }
+
+            // Get permission node.
+            final String permissionNode = plugin.getConfig().getString("items." + str + ".permission");
 
             // Construct ConsumptionControl object.
             final ConsumptionControl consumptionControl;
             if (plugin.getConfig().getBoolean("items." + str + ".consumption-control.enabled")) {
                 consumptionControl = new ConsumptionControl(plugin.getConfig().getInt("items." + str + ".consumption-control.food-level"),
-                                                            plugin.getConfig().getDouble("items." + str + ".consumption-control.saturation"),
+                                                            Float.valueOf(plugin.getConfig().getString("items." + str + ".consumption-control.saturation")),
                                                             plugin.getConfig().getStringList("items." + str + ".consumption-control.effects"));
             } else {
                 consumptionControl = null;
             }
 
             // Add the item to the set.
-            items.add(new Item(material, confData, coolDown, consumptionControl));
+            items.add(new Item(material, confData, permissionNode, coolDown, consumptionControl));
         }
     }
 
-    private boolean nullCheck(final String configSection, final String check, final Object data) {
-        if (data == null) {
-            plugin.getLogger().severe("Null (empty) material for 'items." + configSection + "." + check + "'! " +
-                    "Skipping this item.");
-            return true;
-        } else {
-            return false;
+    private List<String> t(final List<String> s) {
+        final ArrayList<String> temp = new ArrayList<>();
+        for (final String str : s) {
+            temp.add(ChatColor.translateAlternateColorCodes('&', str));
         }
+        return temp;
     }
 
 }

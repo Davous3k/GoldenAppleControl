@@ -1,7 +1,9 @@
 package net.terrocidepvp.goldenapplecontrol;
 
 import net.terrocidepvp.goldenapplecontrol.commands.CommandManager;
+import net.terrocidepvp.goldenapplecontrol.handlers.ItemManager;
 import net.terrocidepvp.goldenapplecontrol.hooks.MVdWPlaceholderHook;
+import net.terrocidepvp.goldenapplecontrol.listeners.ConsumeListener;
 import net.terrocidepvp.goldenapplecontrol.listeners.EnchantedGoldenAppleConsumeListener;
 import net.terrocidepvp.goldenapplecontrol.listeners.GoldenAppleConsumeListener;
 import org.bukkit.Bukkit;
@@ -14,7 +16,8 @@ public class GoldenAppleControl extends JavaPlugin {
         return instance;
     }
 
-    public double serverVersion;
+    private double serverVersion;
+    private ItemManager itemManager;
     private CommandManager commandManager;
 
     @Override
@@ -57,6 +60,7 @@ public class GoldenAppleControl extends JavaPlugin {
         // Load listeners.
         new GoldenAppleConsumeListener(this);
         new EnchantedGoldenAppleConsumeListener(this);
+        new ConsumeListener(this);
 
         // Check if the MVdWPlaceholderAPI plugin is present.
         if (Bukkit.getPluginManager().isPluginEnabled("MVdWPlaceholderAPI")
@@ -73,12 +77,15 @@ public class GoldenAppleControl extends JavaPlugin {
         getCommand("goldenapple").setExecutor(commandManager);
         getCommand("gapplecooldown").setExecutor(commandManager);
         getCommand("gcd").setExecutor(commandManager);
+
+        // Create ItemManager object.
+        itemManager = new ItemManager(this);
     }
 
     @Override
     public void onDisable() {
         commandManager = null;
-        // TODO Nullify the objects you're gonna add in real soon.
+        itemManager = null;
     }
 
     private double getMCVersion() {
@@ -90,5 +97,17 @@ public class GoldenAppleControl extends JavaPlugin {
         // Parse as a double.
         final String[] splitVersion = version.split("\\.");
         return Double.parseDouble(splitVersion[0] + "." + splitVersion[1]);
+    }
+
+    public double getServerVersion() {
+        return serverVersion;
+    }
+
+    public ItemManager getItemManager() {
+        return itemManager;
+    }
+
+    public CommandManager getCommandManager() {
+        return commandManager;
     }
 }

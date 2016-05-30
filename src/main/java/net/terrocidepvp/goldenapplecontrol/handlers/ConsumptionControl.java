@@ -5,11 +5,11 @@ import java.util.List;
 public class ConsumptionControl {
 
     private final int foodLevel;
-    private final double saturation;
+    private final float saturation;
     private final List<String> effects;
 
     public ConsumptionControl(final int foodLevel,
-                              final double saturation,
+                              final float saturation,
                               final List<String> effects) {
         this.foodLevel = foodLevel;
         this.saturation = saturation;
@@ -20,7 +20,7 @@ public class ConsumptionControl {
         return foodLevel;
     }
 
-    public double getSaturation() {
+    public float getSaturation() {
         return saturation;
     }
 
