@@ -1,11 +1,12 @@
 package net.terrocidepvp.goldenapplecontrol.handlers;
 
 import net.terrocidepvp.goldenapplecontrol.GoldenAppleControl;
-import org.bukkit.ChatColor;
+import net.terrocidepvp.goldenapplecontrol.utils.ColorCodeUtil;
 import org.bukkit.Material;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
 
 public class ItemManager {
 
@@ -36,9 +37,9 @@ public class ItemManager {
                 coolDown = Optional.of(new CoolDown(plugin.getConfig().getLong("items." + str + ".cooldown.duration"),
                         plugin.getConfig().getBoolean("items." + str + ".use-formatted-time"),
                         plugin.getConfig().getBoolean("items." + str + ".use-expired-message"),
-                        t(plugin.getConfig().getStringList("items." + str + ".consume-message")),
-                        t(plugin.getConfig().getStringList("items." + str + ".cooldown-message")),
-                        t(plugin.getConfig().getStringList("items." + str + ".expired-message"))));
+                        ColorCodeUtil.translate(plugin.getConfig().getStringList("items." + str + ".consume-message")),
+                        ColorCodeUtil.translate(plugin.getConfig().getStringList("items." + str + ".cooldown-message")),
+                        ColorCodeUtil.translate(plugin.getConfig().getStringList("items." + str + ".expired-message"))));
             }
 
             Optional<String> permissionNode = Optional.ofNullable(plugin.getConfig().getString("items." + str + ".permission"));
@@ -62,10 +63,6 @@ public class ItemManager {
 
     public Set<Item> getItems() {
         return items;
-    }
-
-    private List<String> t(List<String> s) {
-        return s.stream().map(str -> ChatColor.translateAlternateColorCodes('&', str)).collect(Collectors.toCollection(ArrayList::new));
     }
 
 }

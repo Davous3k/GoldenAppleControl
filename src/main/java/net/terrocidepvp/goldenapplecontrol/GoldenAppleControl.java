@@ -2,8 +2,8 @@ package net.terrocidepvp.goldenapplecontrol;
 
 import net.terrocidepvp.goldenapplecontrol.commands.CommandManager;
 import net.terrocidepvp.goldenapplecontrol.handlers.ItemManager;
-import net.terrocidepvp.goldenapplecontrol.hooks.MVdWPlaceholderHook;
 import net.terrocidepvp.goldenapplecontrol.listeners.ConsumeListener;
+import net.terrocidepvp.goldenapplecontrol.utils.ColorCodeUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -18,11 +18,10 @@ public class GoldenAppleControl extends JavaPlugin {
 
     private double serverVersion;
     private ItemManager itemManager;
-    private CommandManager commandManager;
 
-    public String noPerm;
-    public String noActiveCooldowns;
-    public List<String> remainingTime;
+    private String noPerm;
+    private String noActiveCooldowns;
+    private List<String> remainingTime;
 
     @Override
     public void onEnable() {
@@ -55,9 +54,9 @@ public class GoldenAppleControl extends JavaPlugin {
         }
 
         getLogger().info("Loading values from config...");
-        noPerm = getConfig().getString("plugin-messages.no-permission");
-        noActiveCooldowns = getConfig().getString("plugin-messages.no-active-cooldowns");
-        remainingTime = getConfig().getStringList("plugin-messages.remaining-time");
+        noPerm = ColorCodeUtil.translate(getConfig().getString("plugin-messages.no-permission"));
+        noActiveCooldowns = ColorCodeUtil.translate(getConfig().getString("plugin-messages.no-active-cooldowns"));
+        remainingTime = ColorCodeUtil.translate(getConfig().getStringList("plugin-messages.remaining-time"));
 
         serverVersion = getMCVersion();
         getLogger().info("Running Bukkit version " + serverVersion);
@@ -67,10 +66,10 @@ public class GoldenAppleControl extends JavaPlugin {
         if (Bukkit.getPluginManager().isPluginEnabled("MVdWPlaceholderAPI")
                 && getConfig().getBoolean("hooks.mvdw-placeholderapi")) {
             getLogger().info("Attempting to apply custom placeholders...");
-            new MVdWPlaceholderHook(this).hook();
+            // TODO Hook into Maxim's placeholders.
         }
 
-        commandManager = new CommandManager();
+        CommandManager commandManager = new CommandManager();
         getCommand("gapple").setExecutor(commandManager);
         getCommand("goldenapplecontrol").setExecutor(commandManager);
         getCommand("gac").setExecutor(commandManager);
@@ -96,5 +95,16 @@ public class GoldenAppleControl extends JavaPlugin {
     public ItemManager getItemManager() {
         return itemManager;
     }
-    
+
+    public String getNoPerm() {
+        return noPerm;
+    }
+
+    public String getNoActiveCooldowns() {
+        return noActiveCooldowns;
+    }
+
+    public List<String> getRemainingTime() {
+        return remainingTime;
+    }
 }
