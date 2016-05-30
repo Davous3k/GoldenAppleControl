@@ -53,7 +53,7 @@ public class ItemManager {
             }
 
             // Add the item to the set.
-            items.add(new Item(material, confData, permissionNode.orElseGet(null), coolDown.orElseGet(null), consumptionControl.orElseGet(null)));
+            items.add(new Item(str, material, confData, permissionNode.orElse(null), coolDown.orElse(null), consumptionControl.orElse(null)));
         });
     }
 

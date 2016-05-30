@@ -4,13 +4,15 @@ import org.bukkit.Material;
 
 public class Item {
 
+    private String identifier;
     private Material material;
     private int data;
     private String permissionNode;
     private CoolDown coolDown;
     private ConsumptionControl consumptionControl;
 
-    public Item(Material material,
+    public Item(String identifier,
+                Material material,
                 int data,
                 String permissionNode,
                 CoolDown coolDown,
@@ -20,6 +22,10 @@ public class Item {
         this.permissionNode = permissionNode;
         this.coolDown = coolDown;
         this.consumptionControl = consumptionControl;
+    }
+
+    public String getIdentifier() {
+        return identifier;
     }
 
     public Material getMaterial() {
