@@ -6,21 +6,21 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class CoolDown {
 
-    private final double duration;
-    private final boolean useFormattedTime;
-    private final boolean useExpiredMsg;
-    private final List<String> consumeMsg;
-    private final List<String> coolDownMsg;
-    private final List<String> expiredMsg;
+    private double duration;
+    private boolean useFormattedTime;
+    private boolean useExpiredMsg;
+    private List<String> consumeMsg;
+    private List<String> coolDownMsg;
+    private List<String> expiredMsg;
 
-    private final ConcurrentHashMap<UUID, Long> cooldowns = new ConcurrentHashMap<>(8, 0.9f, 1);
+    private ConcurrentHashMap<UUID, Long> cooldowns = new ConcurrentHashMap<>(8, 0.9f, 1);
 
-    public CoolDown(final double duration,
-                    final boolean useFormattedTime,
-                    final boolean useExpiredMsg,
-                    final List<String> consumeMsg,
-                    final List<String> coolDownMsg,
-                    final List<String> expiredMsg) {
+    public CoolDown(double duration,
+                    boolean useFormattedTime,
+                    boolean useExpiredMsg,
+                    List<String> consumeMsg,
+                    List<String> coolDownMsg,
+                    List<String> expiredMsg) {
         this.duration = duration;
         this.useFormattedTime = useFormattedTime;
         this.useExpiredMsg = useExpiredMsg;

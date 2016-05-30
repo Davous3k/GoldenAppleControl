@@ -4,13 +4,13 @@ import java.util.List;
 
 public class ConsumptionControl {
 
-    private final int foodLevel;
-    private final float saturation;
-    private final List<String> effects;
+    private int foodLevel;
+    private float saturation;
+    private List<String> effects;
 
-    public ConsumptionControl(final int foodLevel,
-                              final float saturation,
-                              final List<String> effects) {
+    public ConsumptionControl(int foodLevel,
+                              float saturation,
+                              List<String> effects) {
         this.foodLevel = foodLevel;
         this.saturation = saturation;
         this.effects = effects;

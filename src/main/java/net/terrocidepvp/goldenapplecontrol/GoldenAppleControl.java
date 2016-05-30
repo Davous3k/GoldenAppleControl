@@ -24,11 +24,9 @@ public class GoldenAppleControl extends JavaPlugin {
     public void onEnable() {
         instance = this;
 
-        // Create config if not already existing.
         saveDefaultConfig();
         reloadConfig();
 
-        // Check if config is broken.
         if (!getConfig().isSet("config-version")) {
             getLogger().severe("The config.yml file is broken!");
             getLogger().severe("The plugin failed to detect a 'config-version'.");
@@ -37,8 +35,7 @@ public class GoldenAppleControl extends JavaPlugin {
             return;
         }
 
-        // Outdated config check.
-        final int configVersion = 8;
+        int configVersion = 8;
         /*
          Updated for: Full recode
          Release: v1.8.1
@@ -53,23 +50,19 @@ public class GoldenAppleControl extends JavaPlugin {
             return;
         }
 
-        // Get Minecraft server version.
         serverVersion = getMCVersion();
         getLogger().info("Running Bukkit version " + serverVersion);
 
-        // Load listeners.
         new GoldenAppleConsumeListener(this);
         new EnchantedGoldenAppleConsumeListener(this);
         new ConsumeListener(this);
 
-        // Check if the MVdWPlaceholderAPI plugin is present.
         if (Bukkit.getPluginManager().isPluginEnabled("MVdWPlaceholderAPI")
                 && getConfig().getBoolean("hooks.mvdw-placeholderapi")) {
             getLogger().info("Attempting to apply custom placeholders...");
             new MVdWPlaceholderHook(this).hook();
         }
 
-        // Register command executors.
         commandManager = new CommandManager();
         getCommand("gapple").setExecutor(commandManager);
         getCommand("goldenapplecontrol").setExecutor(commandManager);
@@ -78,24 +71,14 @@ public class GoldenAppleControl extends JavaPlugin {
         getCommand("gapplecooldown").setExecutor(commandManager);
         getCommand("gcd").setExecutor(commandManager);
 
-        // Create ItemManager object.
-        itemManager = new ItemManager(this);
-    }
-
-    @Override
-    public void onDisable() {
-        commandManager = null;
-        itemManager = null;
+        itemManager = ItemManager.createItemManager(this);
     }
 
     private double getMCVersion() {
-        // Get version from Bukkit.
         String version = new String(Bukkit.getVersion());
-        final int pos = version.indexOf("(MC: ");
-        // Clean it up to get the numbers.
+        int pos = version.indexOf("(MC: ");
         version = version.substring(pos + 5).replace(")", "");
-        // Parse as a double.
-        final String[] splitVersion = version.split("\\.");
+        String[] splitVersion = version.split("\\.");
         return Double.parseDouble(splitVersion[0] + "." + splitVersion[1]);
     }
 

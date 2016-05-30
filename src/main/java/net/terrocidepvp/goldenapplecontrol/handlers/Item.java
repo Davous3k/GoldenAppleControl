@@ -4,17 +4,17 @@ import org.bukkit.Material;
 
 public class Item {
 
-    private final Material material;
-    private final int data;
-    private final String permissionNode;
-    private final CoolDown coolDown;
-    private final ConsumptionControl consumptionControl;
+    private Material material;
+    private int data;
+    private String permissionNode;
+    private CoolDown coolDown;
+    private ConsumptionControl consumptionControl;
 
-    public Item(final Material material,
-                final int data,
-                final String permissionNode,
-                final CoolDown coolDown,
-                final ConsumptionControl consumptionControl) {
+    public Item(Material material,
+                int data,
+                String permissionNode,
+                CoolDown coolDown,
+                ConsumptionControl consumptionControl) {
         this.material = material;
         this.data = data;
         this.permissionNode = permissionNode;
