@@ -35,11 +35,11 @@ public class ItemManager {
             Optional<CoolDown> coolDown = Optional.empty();
             if (plugin.getConfig().getBoolean("items." + str + ".cooldown.enabled")) {
                 coolDown = Optional.of(new CoolDown(plugin.getConfig().getLong("items." + str + ".cooldown.duration"),
-                        plugin.getConfig().getBoolean("items." + str + ".use-formatted-time"),
-                        plugin.getConfig().getBoolean("items." + str + ".use-expired-message"),
-                        ColorCodeUtil.translate(plugin.getConfig().getStringList("items." + str + ".consume-message")),
-                        ColorCodeUtil.translate(plugin.getConfig().getStringList("items." + str + ".cooldown-message")),
-                        ColorCodeUtil.translate(plugin.getConfig().getStringList("items." + str + ".expired-message"))));
+                        plugin.getConfig().getBoolean("items." + str + ".cooldown.use-formatted-time"),
+                        plugin.getConfig().getBoolean("items." + str + ".cooldown.use-expired-message"),
+                        ColorCodeUtil.translate(plugin.getConfig().getStringList("items." + str + ".cooldown.consume-message")),
+                        ColorCodeUtil.translate(plugin.getConfig().getStringList("items." + str + ".cooldown.cooldown-message")),
+                        ColorCodeUtil.translate(plugin.getConfig().getStringList("items." + str + ".cooldown.expired-message"))));
             }
 
             Optional<String> permissionNode = Optional.ofNullable(plugin.getConfig().getString("items." + str + ".permission"));

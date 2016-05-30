@@ -64,12 +64,12 @@ items:
             use-formatted-time: true
             use-expired-message: true
             consume-message:
-            - "&7You can't eat another &6golden apple&7 for &c%TIME%&7."
+            - "&7You can't eat another &eenchanted golden apple&7 for &c%TIME%&7."
             - "&2Purchase a rank at &astore.examplecraft.com &2to bypass cooldowns!"
             cooldown-message:
-            - "&7Wait &c%TIME%&7 before eating another &6golden apple&7!"
+            - "&7Wait &c%TIME%&7 before eating another &eenchanted golden apple&7!"
             expired-message:
-            - "&7You may now eat another &6golden apple&7."
+            - "&7You may now eat another &eenchanted golden apple&7."
         consumption-control:
             enabled: true
             food-level: 4

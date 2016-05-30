@@ -50,11 +50,12 @@ public class ConsumeListener implements Listener {
                     if (duration != 0) {
                         coolDown.get().getCooldownMsg().forEach(str -> player.sendMessage(str.replace("%TIME%", TimeUtil.formatTime(formattedTime, duration))));
                         event.setCancelled(true);
+                        return;
                     } else {
                         setCooldown(cooldowns.get(), player.getUniqueId(), coolDown.get().getDuration());
                         coolDown.get().getConsumeMsg().forEach(str -> player.sendMessage(str.replace("%TIME%", TimeUtil.formatTime(formattedTime, coolDown.get().getDuration()))));
                         if (coolDown.get().isUseExpiredMsg()) {
-                            plugin.getServer().getScheduler().runTaskLater(plugin, () -> coolDown.get().getExpiredMsg().forEach(player::sendMessage), coolDown.get().getDuration());
+                            plugin.getServer().getScheduler().runTaskLater(plugin, () -> coolDown.get().getExpiredMsg().forEach(player::sendMessage), coolDown.get().getDuration() * 20);
                         }
                     }
                 }
@@ -62,7 +63,7 @@ public class ConsumeListener implements Listener {
 
             Optional<ConsumptionControl> consumptionControl = Optional.ofNullable(item.getConsumptionControl());
             if (consumptionControl.isPresent()) {
-                if (!event.isCancelled()) event.setCancelled(true);
+                event.setCancelled(true);
 
                 float saturation = consumptionControl.get().getSaturation();
                 if (saturation != 0.0d) {
@@ -83,7 +84,7 @@ public class ConsumeListener implements Listener {
                 // Get correct held item based on server version.
                 ItemStack itemInHand;
                 boolean itemInMainHand;
-                if (GoldenAppleControl.getInstance().getServerVersion() <= 1.9) {
+                if (GoldenAppleControl.getInstance().getServerVersion() >= 1.9) {
                     if (player.getInventory().getItemInMainHand().getType() == item.getMaterial()) {
                         itemInHand = player.getInventory().getItemInMainHand();
                         itemInMainHand = true;
@@ -101,7 +102,7 @@ public class ConsumeListener implements Listener {
                 if (itemInHand.getAmount() >= 1) {
                     itemInHand.setAmount(itemInHand.getAmount() - 1);
                 } else {
-                    if (GoldenAppleControl.getInstance().getServerVersion() <= 1.9) {
+                    if (GoldenAppleControl.getInstance().getServerVersion() >= 1.9) {
                         if (itemInMainHand) {
                             player.getInventory().setItemInMainHand(new ItemStack(Material.AIR));
                         } else {
