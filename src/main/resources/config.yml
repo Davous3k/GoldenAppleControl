@@ -13,9 +13,8 @@ hooks:
     mvdw-placeholderapi: true
 
 plugin-messages:
-    prefix: "&7[&eGolden&6Apple&fControl&7] "
-    no-permission: "&cYou don't have permission."
-    no-active-cooldowns: "&cYou don't have any active cooldowns."
+    no-permission: "&7[&eGolden&6Apple&fControl&7] &cYou don't have permission."
+    no-active-cooldowns: "&7[&eGolden&6Apple&fControl&7] &cYou don't have any active cooldowns."
     # Shows remaining time when a player has "goldenapplecontrol.use" permission node and does "/gapple".
     remaining-time:
         - "&5\u2588\u2588\u2588\u2588&e\u2588\u2588&5\u2588\u2588"

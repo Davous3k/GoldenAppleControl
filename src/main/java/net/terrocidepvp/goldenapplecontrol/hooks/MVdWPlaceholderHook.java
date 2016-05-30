@@ -7,8 +7,6 @@ import org.bukkit.entity.Player;
 import be.maximvdw.placeholderapi.PlaceholderAPI;
 import be.maximvdw.placeholderapi.PlaceholderReplaceEvent;
 import be.maximvdw.placeholderapi.PlaceholderReplacer;
-import net.terrocidepvp.goldenapplecontrol.handlers.EnchantedGoldenAppleCooldowns;
-import net.terrocidepvp.goldenapplecontrol.handlers.GoldenAppleCooldowns;
 import net.terrocidepvp.goldenapplecontrol.utils.TimeUtil;
 
 public class MVdWPlaceholderHook {

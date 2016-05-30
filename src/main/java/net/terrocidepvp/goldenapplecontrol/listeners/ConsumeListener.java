@@ -149,7 +149,6 @@ public class ConsumeListener implements Listener {
     }
 
     public double getCooldown(Map<UUID, Long> cooldowns, UUID playerUuid) {
-        // TODO Set cooldown, display consume message, schedule expiry message with runnable
         if (!cooldowns.containsKey(playerUuid))
             return 0.0d;
         double duration = cooldowns.get(playerUuid);

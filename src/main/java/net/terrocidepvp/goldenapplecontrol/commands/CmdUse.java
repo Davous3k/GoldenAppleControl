@@ -6,8 +6,6 @@ import net.terrocidepvp.goldenapplecontrol.GoldenAppleControl;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import net.terrocidepvp.goldenapplecontrol.handlers.EnchantedGoldenAppleCooldowns;
-import net.terrocidepvp.goldenapplecontrol.handlers.GoldenAppleCooldowns;
 import net.terrocidepvp.goldenapplecontrol.utils.ColorCodeUtil;
 import net.terrocidepvp.goldenapplecontrol.utils.TimeUtil;
 
