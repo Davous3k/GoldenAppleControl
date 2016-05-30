@@ -38,10 +38,10 @@ public class GoldenAppleControl extends JavaPlugin {
         }
 
         // Outdated config check.
-        final int configVersion = 7;
+        final int configVersion = 8;
         /*
-         Updated for: Flexible perms system introduction
-         Release: v1.6
+         Updated for: Full recode
+         Release: v1.8.1
         */
         if (getConfig().getInt("config-version") != configVersion) {
             getLogger().severe("Your config is outdated!");

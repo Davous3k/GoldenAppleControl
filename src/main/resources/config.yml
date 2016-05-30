@@ -5,7 +5,7 @@
 # | CONFIGURATION |
 # x=x=x=x=x=x=x=x=x
 # Please don't change the config version.
-config-version: 7
+config-version: 8
 
 hooks:
     # Allows access to {goldenapplecooldown} and {enchantedgoldenapplecooldown} in plugins like ActionBar, FeatherBoard, ConditionPerms etc.
@@ -58,7 +58,7 @@ items:
     make-sure-its-not-already-used:
         material: GOLDEN_APPLE
         data: 1
-        permission: "idont.reallycare"
+        permission: "idont.reallycare.anymore"
         cooldown:
             enabled: true
             duration: 30
