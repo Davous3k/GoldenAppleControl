@@ -54,6 +54,7 @@ items:
             effects:
             - ABSORPTION:2400:0
             - REGENERATION:100:1
+
     make-sure-its-not-already-used:
         material: GOLDEN_APPLE
         data: 1
@@ -79,3 +80,14 @@ items:
                 - REGENERATION:600:4
                 - DAMAGE_RESISTANCE:6000:0
                 - FIRE_RESISTANCE:6000:0
+
+    why-not-lol:
+        material: COOKED_BEEF
+        data: 0
+        consumption-control:
+            enabled: true
+            food-level: 8
+            saturation: 12.8
+            effects:
+                - SPEED:2400:1
+                - JUMP:800:2
