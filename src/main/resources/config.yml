@@ -9,16 +9,17 @@ config-version: 8
 
 plugin-messages:
     no-permission: "&7[&eGolden&6Apple&fControl&7] &cYou don't have permission."
-    no-active-cooldowns: "&7[&eGolden&6Apple&fControl&7] &cYou don't have any active cooldowns."
-    # Shows remaining time when a player has "goldenapplecontrol.use" permission node and does "/gapple". You can use the placeholders from below here (with %%).
+    # Shows remaining time when a player has "goldenapplecontrol.use" permission node and does "/gapple".
+    # You can use any placeholders you've registered from below, as long as you have PlaceholderAPI.
     remaining-time:
+        - "&c&l&oNOTE: These placeholders won't be replaced unless you have PlaceholderAPI!"
         - "&5\u2588\u2588\u2588\u2588&e\u2588\u2588&5\u2588\u2588"
         - "&5\u2588\u2588\u2588\u2588&e\u2588&5\u2588\u2588\u2588 &6Golden apple&7:"
-        - "&5\u2588\u2588&6\u2588\u2588\u2588\u2588&5\u2588\u2588 &c%GOLDENAPPLE%"
+        - "&5\u2588\u2588&6\u2588\u2588\u2588\u2588&5\u2588\u2588 &c%goldenapplecontrol_gapple%"
         - "&5\u2588&6\u2588\u2588&f\u2588&6\u2588\u2588\u2588&5\u2588"
         - "&5\u2588&6\u2588&f\u2588&6\u2588\u2588\u2588\u2588&5\u2588"
         - "&5\u2588&6\u2588\u2588\u2588\u2588\u2588\u2588&5\u2588 &eEnchanted golden apple&7:"
-        - "&5\u2588&6\u2588\u2588\u2588\u2588\u2588\u2588&5\u2588 &c%ENCHANTEDGOLDENAPPLE%"
+        - "&5\u2588&6\u2588\u2588\u2588\u2588\u2588\u2588&5\u2588 &c%goldenapplecontrol_enchantedgapple%"
         - "&5\u2588\u2588&6\u2588\u2588\u2588\u2588&5\u2588\u2588"
 
 items:

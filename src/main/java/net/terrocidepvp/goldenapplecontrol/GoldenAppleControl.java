@@ -21,9 +21,9 @@ public class GoldenAppleControl extends JavaPlugin {
 
     private double serverVersion;
     private ItemManager itemManager;
+    private ClipPAPIHook clipPAPIHook;
 
     private String noPerm;
-    private String noActiveCooldowns;
     private List<String> remainingTime;
     private List<String> placeholders = new ArrayList<>();
 
@@ -59,7 +59,6 @@ public class GoldenAppleControl extends JavaPlugin {
 
         getLogger().info("Loading values from config...");
         noPerm = ColorCodeUtil.translate(getConfig().getString("plugin-messages.no-permission"));
-        noActiveCooldowns = ColorCodeUtil.translate(getConfig().getString("plugin-messages.no-active-cooldowns"));
         remainingTime = ColorCodeUtil.translate(getConfig().getStringList("plugin-messages.remaining-time"));
         itemManager = ItemManager.createItemManager(this);
 
@@ -72,7 +71,8 @@ public class GoldenAppleControl extends JavaPlugin {
         }
         if (getServer().getPluginManager().isPluginEnabled("PlaceholderAPI")) {
             getLogger().info("Attempting to hook into Clip's PAPI...");
-            new ClipPAPIHook(this).hook();
+            clipPAPIHook = new ClipPAPIHook(this);
+            clipPAPIHook.hook();
         }
 
         CommandManager commandManager = new CommandManager();
@@ -87,9 +87,9 @@ public class GoldenAppleControl extends JavaPlugin {
     }
 
     private double getMCVersion() {
-        String version = new String(Bukkit.getVersion());
+        String version = Bukkit.getVersion();
         int pos = version.indexOf("(MC: ");
-        version = version.substring(pos + 5).replace(")", "");
+        String newVersion = version.substring(pos + 5).replace(")", "");
         String[] splitVersion = version.split("\\.");
         return Double.parseDouble(splitVersion[0] + "." + splitVersion[1]);
     }
@@ -106,15 +106,15 @@ public class GoldenAppleControl extends JavaPlugin {
         return noPerm;
     }
 
-    public String getNoActiveCooldowns() {
-        return noActiveCooldowns;
-    }
-
     public List<String> getRemainingTime() {
         return remainingTime;
     }
 
     public List<String> getPlaceholders() {
         return placeholders;
+    }
+
+    public ClipPAPIHook getClipPAPIHook() {
+        return clipPAPIHook;
     }
 }

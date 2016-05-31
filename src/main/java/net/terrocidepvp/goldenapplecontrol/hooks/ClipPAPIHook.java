@@ -1,5 +1,6 @@
 package net.terrocidepvp.goldenapplecontrol.hooks;
 
+import me.clip.placeholderapi.PlaceholderAPI;
 import me.clip.placeholderapi.external.EZPlaceholderHook;
 import net.terrocidepvp.goldenapplecontrol.GoldenAppleControl;
 import net.terrocidepvp.goldenapplecontrol.handlers.Item;
@@ -7,6 +8,7 @@ import net.terrocidepvp.goldenapplecontrol.utils.CooldownUtil;
 import net.terrocidepvp.goldenapplecontrol.utils.TimeUtil;
 import org.bukkit.entity.Player;
 
+import java.util.List;
 import java.util.Optional;
 
 public class ClipPAPIHook extends EZPlaceholderHook {
@@ -20,7 +22,11 @@ public class ClipPAPIHook extends EZPlaceholderHook {
     }
 
     @Override
-    public String onPlaceholderRequest(final Player p, final String identifier) {
+    public String onPlaceholderRequest(Player p, String identifier) {
+        if (p == null) {
+            return "Player needed!";
+        }
+
         for (String placeholder : plugin.getPlaceholders()) {
             if (!placeholder.equals(identifier)) continue;
             for (Item item : plugin.getItemManager().getItems()) {
@@ -39,4 +45,9 @@ public class ClipPAPIHook extends EZPlaceholderHook {
         }
         return null;
     }
+
+    public List<String> replacePlaceholders(Player player, List<String> string) {
+        return PlaceholderAPI.setPlaceholders(player, string);
+    }
+
 }

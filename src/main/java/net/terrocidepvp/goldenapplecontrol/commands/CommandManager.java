@@ -1,6 +1,7 @@
 package net.terrocidepvp.goldenapplecontrol.commands;
 
 import net.terrocidepvp.goldenapplecontrol.GoldenAppleControl;
+import net.terrocidepvp.goldenapplecontrol.hooks.ClipPAPIHook;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -8,13 +9,19 @@ import org.bukkit.entity.Player;
 
 public class CommandManager implements CommandExecutor {
 
+    private ClipPAPIHook clipPAPIHook = GoldenAppleControl.getInstance().getClipPAPIHook();
+
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
         if (args.length == 0) {
             if (sender instanceof Player) {
                 if (sender.hasPermission("goldenapplecontrol.use")) {
-                    // TODO The use command to display any active cooldowns.
+                    if (clipPAPIHook != null) {
+                        clipPAPIHook.replacePlaceholders((Player) sender, GoldenAppleControl.getInstance().getRemainingTime()).forEach(sender::sendMessage);
+                    } else {
+                        sender.sendMessage("Clip's PlaceholderAPI is required for this command to work!");
+                    }
                     return true;
                 } else {
                     sender.sendMessage(GoldenAppleControl.getInstance().getNoPerm());

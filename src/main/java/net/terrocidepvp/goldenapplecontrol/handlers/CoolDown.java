@@ -16,12 +16,12 @@ public class CoolDown {
 
     private Map<UUID, Long> cooldowns = new ConcurrentHashMap<>(8, 0.9f, 1);
 
-    public CoolDown(long duration,
-                    boolean useFormattedTime,
-                    boolean useExpiredMsg,
-                    List<String> consumeMsg,
-                    List<String> coolDownMsg,
-                    List<String> expiredMsg) {
+    CoolDown(long duration,
+             boolean useFormattedTime,
+             boolean useExpiredMsg,
+             List<String> consumeMsg,
+             List<String> coolDownMsg,
+             List<String> expiredMsg) {
         this.duration = duration;
         this.useFormattedTime = useFormattedTime;
         this.useExpiredMsg = useExpiredMsg;

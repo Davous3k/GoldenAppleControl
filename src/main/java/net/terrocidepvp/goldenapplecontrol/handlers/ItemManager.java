@@ -54,7 +54,6 @@ public class ItemManager {
                             placeholder = Optional.of(registerThis.get().toLowerCase());
                             plugin.getPlaceholders().add(registerThis.get().toLowerCase());
                         }
-                        // TODO register for clip (store in set/list) and register for maxim (static should do)
                     } else {
                         plugin.getLogger().severe("We won't register a placeholder because you haven't specified a placeholder to register at 'items." + str + ".placeholder.register-this'!");
                     }

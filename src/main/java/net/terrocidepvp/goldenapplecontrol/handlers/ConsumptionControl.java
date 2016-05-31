@@ -8,9 +8,9 @@ public class ConsumptionControl {
     private float saturation;
     private List<String> effects;
 
-    public ConsumptionControl(int foodLevel,
-                              float saturation,
-                              List<String> effects) {
+    ConsumptionControl(int foodLevel,
+                       float saturation,
+                       List<String> effects) {
         this.foodLevel = foodLevel;
         this.saturation = saturation;
         this.effects = effects;

@@ -12,7 +12,7 @@ import java.util.Optional;
 
 public class MaximPAPIHook {
 
-    public static void hook(final GoldenAppleControl plugin) {
+    public static void hook(GoldenAppleControl plugin) {
         for (String placeholder : plugin.getPlaceholders()) {
             PlaceholderAPI.registerPlaceholder(plugin, "goldenapplecontrol_" + placeholder, event -> {
                 final Player player = event.getPlayer();
