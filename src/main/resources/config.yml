@@ -7,15 +7,10 @@
 # Please don't change the config version.
 config-version: 8
 
-hooks:
-    # Allows access to {goldenapplecooldown} and {enchantedgoldenapplecooldown} in plugins like ActionBar, FeatherBoard, ConditionPerms etc.
-    # https://www.spigotmc.org/resources/mvdwplaceholderapi.11182/
-    mvdw-placeholderapi: true
-
 plugin-messages:
     no-permission: "&7[&eGolden&6Apple&fControl&7] &cYou don't have permission."
     no-active-cooldowns: "&7[&eGolden&6Apple&fControl&7] &cYou don't have any active cooldowns."
-    # Shows remaining time when a player has "goldenapplecontrol.use" permission node and does "/gapple".
+    # Shows remaining time when a player has "goldenapplecontrol.use" permission node and does "/gapple". You can use the placeholders from below here (with %%).
     remaining-time:
         - "&5\u2588\u2588\u2588\u2588&e\u2588\u2588&5\u2588\u2588"
         - "&5\u2588\u2588\u2588\u2588&e\u2588&5\u2588\u2588\u2588 &6Golden apple&7:"
@@ -43,6 +38,10 @@ items:
             - "&7Wait &c%TIME%&7 before eating another &6golden apple&7!"
             expired-message:
             - "&7You may now eat another &6golden apple&7."
+        placeholder:
+            enabled: true
+            # In this case it would be {goldenapplecontrol_gapple} with Maxim or %goldenapplecontrol_gapple% with Clip.
+            register-this: "gapple"
         consumption-control:
             enabled: true
             # The food level is measured in half-shanks in the hunger bar. Whole numbers please.
@@ -71,6 +70,9 @@ items:
             - "&7Wait &c%TIME%&7 before eating another &eenchanted golden apple&7!"
             expired-message:
             - "&7You may now eat another &eenchanted golden apple&7."
+        placeholder:
+            enabled: true
+            register-this: "enchantedgapple"
         consumption-control:
             enabled: true
             food-level: 4

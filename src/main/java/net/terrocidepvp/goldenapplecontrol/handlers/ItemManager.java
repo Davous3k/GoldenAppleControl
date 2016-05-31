@@ -43,6 +43,18 @@ public class ItemManager {
                         ColorCodeUtil.translate(plugin.getConfig().getStringList("items." + str + ".cooldown.expired-message"))));
             }
 
+            if (coolDown.isPresent()
+                    && (plugin.getConfig().getBoolean("items." + str + "placeholder.enabled", false))) {
+                Optional<String> registerThis = Optional.ofNullable(plugin.getConfig().getString("items." + str + "placeholder.register-this"));
+                if (registerThis.isPresent()) {
+                    // TODO register for clip (store in set/list) and register for maxim (static should do)
+                } else {
+                    plugin.getLogger().severe("We won't register a placeholder because you haven't specified a placeholder to register at 'items." + str + ".placeholder.register-this'!");
+                }
+            } else {
+                plugin.getLogger().severe("Silly you! We won't register a placeholder because your item 'items." + str + ".placeholder' has no cooldown!");
+            }
+
             Optional<String> permissionNode = Optional.ofNullable(plugin.getConfig().getString("items." + str + ".permission"));
 
             // Construct ConsumptionControl object.

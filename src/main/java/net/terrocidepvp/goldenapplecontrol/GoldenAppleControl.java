@@ -57,16 +57,14 @@ public class GoldenAppleControl extends JavaPlugin {
         noPerm = ColorCodeUtil.translate(getConfig().getString("plugin-messages.no-permission"));
         noActiveCooldowns = ColorCodeUtil.translate(getConfig().getString("plugin-messages.no-active-cooldowns"));
         remainingTime = ColorCodeUtil.translate(getConfig().getStringList("plugin-messages.remaining-time"));
+        new ConsumeListener(this);
 
         serverVersion = getMCVersion();
         getLogger().info("Running Bukkit version " + serverVersion);
 
-        new ConsumeListener(this);
-
-        if (Bukkit.getPluginManager().isPluginEnabled("MVdWPlaceholderAPI")
-                && getConfig().getBoolean("hooks.mvdw-placeholderapi")) {
+        if (Bukkit.getPluginManager().isPluginEnabled("MVdWPlaceholderAPI")) {
             getLogger().info("Attempting to apply custom placeholders...");
-            // TODO Hook into Maxim's placeholders.
+            // TODO Hook into Maxim's and Clip's placeholders
         }
 
         CommandManager commandManager = new CommandManager();
