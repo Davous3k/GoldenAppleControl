@@ -1,4 +1,5 @@
 ## Creative Commons
+Click [here](https://creativecommons.org/licenses/by-nc/4.0/) to view a human-readable summary of (and not a substitute for) the [license](https://creativecommons.org/licenses/by-nc/4.0/legalcode).
 
 # Attribution-NonCommercial 4.0 International
 
