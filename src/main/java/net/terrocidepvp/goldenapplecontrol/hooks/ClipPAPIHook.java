@@ -22,7 +22,6 @@ public class ClipPAPIHook extends EZPlaceholderHook {
     @Override
     public String onPlaceholderRequest(final Player p, final String identifier) {
         for (String placeholder : plugin.getPlaceholders()) {
-            System.out.println(identifier + " " + placeholder);
             if (!placeholder.equals(identifier)) continue;
             for (Item item : plugin.getItemManager().getItems()) {
                 Optional<String> itemPlaceholder = Optional.ofNullable(item.getPlaceholder());
