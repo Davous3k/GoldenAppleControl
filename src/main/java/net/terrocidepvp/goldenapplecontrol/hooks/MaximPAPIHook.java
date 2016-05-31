@@ -8,6 +8,8 @@ import net.terrocidepvp.goldenapplecontrol.utils.TimeUtil;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
+import java.util.Optional;
+
 public class MaximPAPIHook {
 
     public static void hook(final GoldenAppleControl plugin) {
@@ -20,7 +22,9 @@ public class MaximPAPIHook {
                 }
 
                 for (Item item : plugin.getItemManager().getItems()) {
-                    if (item.getPlaceholder().equals(placeholder)) {
+                    Optional<String> itemPlaceholder = Optional.ofNullable(item.getPlaceholder());
+                    if (itemPlaceholder.isPresent()
+                            && itemPlaceholder.get().equals(placeholder)) {
                         boolean formattedTime = item.getCoolDown().isUseFormattedTime();
                         double duration = CooldownUtil.getCooldown(item.getCoolDown().getCooldowns(), player.getUniqueId());
                         if (duration != 0) {

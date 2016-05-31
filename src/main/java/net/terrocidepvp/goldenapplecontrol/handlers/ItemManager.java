@@ -44,22 +44,21 @@ public class ItemManager {
             }
 
             Optional<String> placeholder = Optional.empty();
-            if (coolDown.isPresent()
-                    && (plugin.getConfig().getBoolean("items." + str + "placeholder.enabled", false))) {
-                Optional<String> registerThis = Optional.ofNullable(plugin.getConfig().getString("items." + str + "placeholder.register-this"));
-                if (registerThis.isPresent()) {
-                    if (plugin.getPlaceholders().contains(registerThis.get().toLowerCase())) {
-                        plugin.getLogger().severe("The placeholder for 'items." + str + ".placeholder.register-this' is already being used! Skipping placeholder registration.");
+            if (coolDown.isPresent()) {
+                if (plugin.getConfig().getBoolean("items." + str + ".placeholder.enabled", false)) {
+                    Optional<String> registerThis = Optional.ofNullable(plugin.getConfig().getString("items." + str + ".placeholder.register-this"));
+                    if (registerThis.isPresent()) {
+                        if (plugin.getPlaceholders().contains(registerThis.get().toLowerCase())) {
+                            plugin.getLogger().severe("The placeholder for 'items." + str + ".placeholder.register-this' is already being used! Skipping placeholder registration.");
+                        } else {
+                            placeholder = Optional.of(registerThis.get().toLowerCase());
+                            plugin.getPlaceholders().add(registerThis.get().toLowerCase());
+                        }
+                        // TODO register for clip (store in set/list) and register for maxim (static should do)
                     } else {
-                        placeholder = Optional.of(registerThis.get().toLowerCase());
-                        plugin.getPlaceholders().add(registerThis.get().toLowerCase());
+                        plugin.getLogger().severe("We won't register a placeholder because you haven't specified a placeholder to register at 'items." + str + ".placeholder.register-this'!");
                     }
-                    // TODO register for clip (store in set/list) and register for maxim (static should do)
-                } else {
-                    plugin.getLogger().severe("We won't register a placeholder because you haven't specified a placeholder to register at 'items." + str + ".placeholder.register-this'!");
                 }
-            } else {
-                plugin.getLogger().severe("Silly you! We won't register a placeholder because your item 'items." + str + ".placeholder' has no cooldown!");
             }
 
             Optional<String> permissionNode = Optional.ofNullable(plugin.getConfig().getString("items." + str + ".permission"));

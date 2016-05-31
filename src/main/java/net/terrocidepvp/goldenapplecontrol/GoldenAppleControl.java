@@ -9,6 +9,7 @@ import net.terrocidepvp.goldenapplecontrol.utils.ColorCodeUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GoldenAppleControl extends JavaPlugin {
@@ -24,7 +25,7 @@ public class GoldenAppleControl extends JavaPlugin {
     private String noPerm;
     private String noActiveCooldowns;
     private List<String> remainingTime;
-    private List<String> placeholders;
+    private List<String> placeholders = new ArrayList<>();
 
     @Override
     public void onEnable() {
@@ -60,10 +61,10 @@ public class GoldenAppleControl extends JavaPlugin {
         noPerm = ColorCodeUtil.translate(getConfig().getString("plugin-messages.no-permission"));
         noActiveCooldowns = ColorCodeUtil.translate(getConfig().getString("plugin-messages.no-active-cooldowns"));
         remainingTime = ColorCodeUtil.translate(getConfig().getStringList("plugin-messages.remaining-time"));
-        new ConsumeListener(this);
+        itemManager = ItemManager.createItemManager(this);
 
         serverVersion = getMCVersion();
-        getLogger().info("Running Bukkit version " + serverVersion);
+        getLogger().info("Running server version " + serverVersion);
 
         if (getServer().getPluginManager().isPluginEnabled("MVdWPlaceholderAPI")) {
             getLogger().info("Attempting to register placeholders for Maxim's PAPI...");
@@ -71,7 +72,7 @@ public class GoldenAppleControl extends JavaPlugin {
         }
         if (getServer().getPluginManager().isPluginEnabled("PlaceholderAPI")) {
             getLogger().info("Attempting to hook into Clip's PAPI...");
-            new ClipPAPIHook(this);
+            new ClipPAPIHook(this).hook();
         }
 
         CommandManager commandManager = new CommandManager();
@@ -82,7 +83,7 @@ public class GoldenAppleControl extends JavaPlugin {
         getCommand("gapplecooldown").setExecutor(commandManager);
         getCommand("gcd").setExecutor(commandManager);
 
-        itemManager = ItemManager.createItemManager(this);
+        new ConsumeListener(this);
     }
 
     private double getMCVersion() {

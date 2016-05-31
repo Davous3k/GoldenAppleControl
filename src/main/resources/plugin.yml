@@ -1,7 +1,7 @@
 name: ${project.artifactId}
 main: net.terrocidepvp.goldenapplecontrol.GoldenAppleControl
 version: ${project.version}
-softdepend: [MVdWPlaceholderAPI]
+softdepend: [PlaceholderAPI, MVdWPlaceholderAPI]
 author: Terrobility
 description: ${project.description}
 website: https://terrocidepvp.net/

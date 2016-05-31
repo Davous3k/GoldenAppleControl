@@ -1,7 +1,5 @@
 package net.terrocidepvp.goldenapplecontrol.handlers;
 
-import com.sun.istack.internal.NotNull;
-import com.sun.istack.internal.Nullable;
 import org.bukkit.Material;
 
 public class Item {
@@ -13,12 +11,12 @@ public class Item {
     private CoolDown coolDown;
     private ConsumptionControl consumptionControl;
 
-    Item(@NotNull Material material,
-         @NotNull int data,
-         @Nullable String placeholder,
-         @Nullable String permissionNode,
-         @Nullable CoolDown coolDown,
-         @Nullable ConsumptionControl consumptionControl) {
+    Item(Material material,
+         int data,
+         String placeholder,
+         String permissionNode,
+         CoolDown coolDown,
+         ConsumptionControl consumptionControl) {
         this.material = material;
         this.data = data;
         this.placeholder = placeholder;
