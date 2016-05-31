@@ -45,7 +45,7 @@ public class GoldenAppleControl extends JavaPlugin {
         int configVersion = 8;
         /*
          Updated for: Full recode
-         Release: v1.8.1
+         Release: v2.0.0
         */
         if (getConfig().getInt("config-version") != configVersion) {
             getLogger().severe("Your config is outdated!");
