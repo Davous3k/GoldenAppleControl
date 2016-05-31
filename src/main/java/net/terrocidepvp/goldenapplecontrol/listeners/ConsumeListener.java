@@ -3,6 +3,7 @@ package net.terrocidepvp.goldenapplecontrol.listeners;
 import net.terrocidepvp.goldenapplecontrol.GoldenAppleControl;
 import net.terrocidepvp.goldenapplecontrol.handlers.ConsumptionControl;
 import net.terrocidepvp.goldenapplecontrol.handlers.CoolDown;
+import net.terrocidepvp.goldenapplecontrol.utils.CooldownUtil;
 import net.terrocidepvp.goldenapplecontrol.utils.TimeUtil;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -46,13 +47,13 @@ public class ConsumeListener implements Listener {
                 Optional<Map<UUID, Long>> cooldowns = Optional.ofNullable(coolDown.get().getCooldowns());
                 if (cooldowns.isPresent()) {
                     boolean formattedTime = coolDown.get().isUseFormattedTime();
-                    double duration = getCooldown(cooldowns.get(), player.getUniqueId());
+                    double duration = CooldownUtil.getCooldown(cooldowns.get(), player.getUniqueId());
                     if (duration != 0) {
                         coolDown.get().getCooldownMsg().forEach(str -> player.sendMessage(str.replace("%TIME%", TimeUtil.formatTime(formattedTime, duration))));
                         event.setCancelled(true);
                         return;
                     } else {
-                        setCooldown(cooldowns.get(), player.getUniqueId(), coolDown.get().getDuration());
+                        CooldownUtil.setCooldown(cooldowns.get(), player.getUniqueId(), coolDown.get().getDuration());
                         coolDown.get().getConsumeMsg().forEach(str -> player.sendMessage(str.replace("%TIME%", TimeUtil.formatTime(formattedTime, coolDown.get().getDuration()))));
                         if (coolDown.get().isUseExpiredMsg()) {
                             plugin.getServer().getScheduler().runTaskLater(plugin, () -> coolDown.get().getExpiredMsg().forEach(player::sendMessage), coolDown.get().getDuration() * 20);
@@ -146,28 +147,6 @@ public class ConsumeListener implements Listener {
 
             }
         });
-
     }
 
-    public double getCooldown(Map<UUID, Long> cooldowns, UUID playerUuid) {
-        if (!cooldowns.containsKey(playerUuid))
-            return 0.0d;
-        double duration = cooldowns.get(playerUuid);
-        duration -= System.currentTimeMillis();
-        if (duration <= 0L) {
-            cooldowns.remove(playerUuid);
-            return 0.0d;
-        }
-        duration /= 1000d;
-        return Math.round(duration * 10) / 10.0d;
-    }
-
-    public void setCooldown(Map<UUID, Long> cooldowns, UUID playerUuid, long duration) {
-        if (cooldowns.containsKey(playerUuid)) {
-            cooldowns.remove(playerUuid);
-        }
-        long durationSeconds = System.currentTimeMillis();
-        durationSeconds += duration * 1000;
-        cooldowns.put(playerUuid, durationSeconds);
-    }
 }

@@ -43,10 +43,17 @@ public class ItemManager {
                         ColorCodeUtil.translate(plugin.getConfig().getStringList("items." + str + ".cooldown.expired-message"))));
             }
 
+            Optional<String> placeholder = Optional.empty();
             if (coolDown.isPresent()
                     && (plugin.getConfig().getBoolean("items." + str + "placeholder.enabled", false))) {
                 Optional<String> registerThis = Optional.ofNullable(plugin.getConfig().getString("items." + str + "placeholder.register-this"));
                 if (registerThis.isPresent()) {
+                    if (plugin.getPlaceholders().contains(registerThis.get().toLowerCase())) {
+                        plugin.getLogger().severe("The placeholder for 'items." + str + ".placeholder.register-this' is already being used! Skipping placeholder registration.");
+                    } else {
+                        placeholder = Optional.of(registerThis.get().toLowerCase());
+                        plugin.getPlaceholders().add(registerThis.get().toLowerCase());
+                    }
                     // TODO register for clip (store in set/list) and register for maxim (static should do)
                 } else {
                     plugin.getLogger().severe("We won't register a placeholder because you haven't specified a placeholder to register at 'items." + str + ".placeholder.register-this'!");
@@ -66,7 +73,7 @@ public class ItemManager {
             }
 
             // Add the item to the set.
-            items.add(new Item(str, material, confData, permissionNode.orElse(null), coolDown.orElse(null), consumptionControl.orElse(null)));
+            items.add(new Item(material, confData, placeholder.orElse(null), permissionNode.orElse(null), coolDown.orElse(null), consumptionControl.orElse(null)));
         });
     }
 

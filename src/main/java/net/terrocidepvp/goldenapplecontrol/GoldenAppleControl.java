@@ -2,6 +2,8 @@ package net.terrocidepvp.goldenapplecontrol;
 
 import net.terrocidepvp.goldenapplecontrol.commands.CommandManager;
 import net.terrocidepvp.goldenapplecontrol.handlers.ItemManager;
+import net.terrocidepvp.goldenapplecontrol.hooks.ClipPAPIHook;
+import net.terrocidepvp.goldenapplecontrol.hooks.MaximPAPIHook;
 import net.terrocidepvp.goldenapplecontrol.listeners.ConsumeListener;
 import net.terrocidepvp.goldenapplecontrol.utils.ColorCodeUtil;
 import org.bukkit.Bukkit;
@@ -22,6 +24,7 @@ public class GoldenAppleControl extends JavaPlugin {
     private String noPerm;
     private String noActiveCooldowns;
     private List<String> remainingTime;
+    private List<String> placeholders;
 
     @Override
     public void onEnable() {
@@ -62,9 +65,13 @@ public class GoldenAppleControl extends JavaPlugin {
         serverVersion = getMCVersion();
         getLogger().info("Running Bukkit version " + serverVersion);
 
-        if (Bukkit.getPluginManager().isPluginEnabled("MVdWPlaceholderAPI")) {
-            getLogger().info("Attempting to apply custom placeholders...");
-            // TODO Hook into Maxim's and Clip's placeholders
+        if (getServer().getPluginManager().isPluginEnabled("MVdWPlaceholderAPI")) {
+            getLogger().info("Attempting to register placeholders for Maxim's PAPI...");
+            MaximPAPIHook.hook(this);
+        }
+        if (getServer().getPluginManager().isPluginEnabled("PlaceholderAPI")) {
+            getLogger().info("Attempting to hook into Clip's PAPI...");
+            new ClipPAPIHook(this);
         }
 
         CommandManager commandManager = new CommandManager();
@@ -104,5 +111,9 @@ public class GoldenAppleControl extends JavaPlugin {
 
     public List<String> getRemainingTime() {
         return remainingTime;
+    }
+
+    public List<String> getPlaceholders() {
+        return placeholders;
     }
 }
