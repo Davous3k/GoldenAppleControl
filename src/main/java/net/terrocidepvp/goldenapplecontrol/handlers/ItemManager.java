@@ -15,25 +15,26 @@ public class ItemManager {
     private ItemManager(GoldenAppleControl plugin) {
         plugin.getConfig().getConfigurationSection("items").getKeys(false).forEach(str -> {
             Optional<String> confMaterial = Optional.ofNullable(plugin.getConfig().getString("items." + str + ".material"));
-            if (!confMaterial.isPresent()) {
-                plugin.getLogger().severe("Null (empty) material for 'items." + str + ".material'! " +
-                        "Skipping this item.");
-                return;
-            }
             Material material;
             try {
-                material = Material.valueOf(confMaterial.get().toUpperCase().replaceAll("[^A-Z0-9_]", "_"));
+                if (confMaterial.isPresent()) {
+                    material = Material.valueOf(confMaterial.get().toUpperCase().replaceAll("[^A-Z0-9_]", "_"));
+                } else {
+                    plugin.getLogger().severe("Null (non-existent) material for 'items." + str + ".material'! " +
+                            "Skipping this item.");
+                    return;
+                }
             } catch (IllegalArgumentException e) {
                 plugin.getLogger().severe("Invalid material (" + confMaterial + ") for 'items." + str + ".material'! " +
                         "Skipping this item.");
                 return;
             }
 
-            int confData = plugin.getConfig().getInt("items." + str + ".data");
+            int confData = plugin.getConfig().getInt("items." + str + ".data", 0);
 
             // Construct CoolDown object.
             Optional<CoolDown> coolDown = Optional.empty();
-            if (plugin.getConfig().getBoolean("items." + str + ".cooldown.enabled")) {
+            if (plugin.getConfig().getBoolean("items." + str + ".cooldown.enabled", false)) {
                 coolDown = Optional.of(new CoolDown(plugin.getConfig().getLong("items." + str + ".cooldown.duration"),
                         plugin.getConfig().getBoolean("items." + str + ".cooldown.use-formatted-time"),
                         plugin.getConfig().getBoolean("items." + str + ".cooldown.use-expired-message"),
@@ -46,9 +47,9 @@ public class ItemManager {
 
             // Construct ConsumptionControl object.
             Optional<ConsumptionControl> consumptionControl = Optional.empty();
-            if (plugin.getConfig().getBoolean("items." + str + ".consumption-control.enabled")) {
-                consumptionControl = Optional.of(new ConsumptionControl(plugin.getConfig().getInt("items." + str + ".consumption-control.food-level"),
-                        Float.valueOf(plugin.getConfig().getString("items." + str + ".consumption-control.saturation")),
+            if (plugin.getConfig().getBoolean("items." + str + ".consumption-control.enabled", false)) {
+                consumptionControl = Optional.of(new ConsumptionControl(plugin.getConfig().getInt("items." + str + ".consumption-control.food-level", 0),
+                        (float) plugin.getConfig().getDouble("items." + str + ".consumption-control.saturation", 0.0),
                         plugin.getConfig().getStringList("items." + str + ".consumption-control.effects")));
             }
 
