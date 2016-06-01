@@ -90,7 +90,7 @@ public class GoldenAppleControl extends JavaPlugin {
         String version = Bukkit.getVersion();
         int pos = version.indexOf("(MC: ");
         String newVersion = version.substring(pos + 5).replace(")", "");
-        String[] splitVersion = version.split("\\.");
+        String[] splitVersion = newVersion.split("\\.");
         return Double.parseDouble(splitVersion[0] + "." + splitVersion[1]);
     }
 
