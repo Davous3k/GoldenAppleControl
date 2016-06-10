@@ -38,7 +38,7 @@ public class ClipPAPIHook extends EZPlaceholderHook {
                     if (duration != 0) {
                         return TimeUtil.formatTime(formattedTime, duration);
                     } else {
-                        return "&4Inactive";
+                        return GoldenAppleControl.getInstance().getInactiveMsg();
                     }
                 }
             }

@@ -24,7 +24,9 @@ public class GoldenAppleControl extends JavaPlugin {
     private ClipPAPIHook clipPAPIHook;
 
     private String noPerm;
+    private String inactiveMsg;
     private List<String> remainingTime;
+    private List<String> blockedWorlds;
     private List<String> placeholders = new ArrayList<>();
 
     @Override
@@ -42,10 +44,10 @@ public class GoldenAppleControl extends JavaPlugin {
             return;
         }
 
-        int configVersion = 8;
+        int configVersion = 9;
         /*
-         Updated for: Full recode
-         Release: v2.0.0
+         Updated for: World bypass and Inactive string for placeholders
+         Release: v2.0.3
         */
         if (getConfig().getInt("config-version") != configVersion) {
             getLogger().severe("Your config is outdated!");
@@ -59,7 +61,9 @@ public class GoldenAppleControl extends JavaPlugin {
 
         getLogger().info("Loading values from config...");
         noPerm = ColorCodeUtil.translate(getConfig().getString("plugin-messages.no-permission"));
+        inactiveMsg = getConfig().getString("plugin-messages.inactive-cooldown");
         remainingTime = ColorCodeUtil.translate(getConfig().getStringList("plugin-messages.remaining-time"));
+        blockedWorlds = getConfig().getStringList("ignore-cooldowns-in-these-worlds");
         itemManager = ItemManager.createItemManager(this);
 
         serverVersion = getMCVersion();
@@ -116,5 +120,13 @@ public class GoldenAppleControl extends JavaPlugin {
 
     public ClipPAPIHook getClipPAPIHook() {
         return clipPAPIHook;
+    }
+
+    public String getInactiveMsg() {
+        return inactiveMsg;
+    }
+
+    public List<String> getBlockedWorlds() {
+        return blockedWorlds;
     }
 }

@@ -4,6 +4,7 @@ import net.terrocidepvp.goldenapplecontrol.GoldenAppleControl;
 import net.terrocidepvp.goldenapplecontrol.handlers.ConsumptionControl;
 import net.terrocidepvp.goldenapplecontrol.handlers.CoolDown;
 import net.terrocidepvp.goldenapplecontrol.utils.CooldownUtil;
+import net.terrocidepvp.goldenapplecontrol.utils.ListUtil;
 import net.terrocidepvp.goldenapplecontrol.utils.TimeUtil;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -42,7 +43,8 @@ public class ConsumeListener implements Listener {
                         || (item.getPermissionNode() != null && player.hasPermission(item.getPermissionNode())))).forEach(item -> {
 
             Optional<CoolDown> coolDown = Optional.ofNullable(item.getCoolDown());
-            if (coolDown.isPresent()) {
+            if (coolDown.isPresent()
+                    && !ListUtil.doesListContain(plugin.getBlockedWorlds(), player.getWorld().getName())) {
 
                 Optional<Map<UUID, Long>> cooldowns = Optional.ofNullable(coolDown.get().getCooldowns());
                 if (cooldowns.isPresent()) {

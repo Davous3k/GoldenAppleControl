@@ -30,11 +30,11 @@ public class MaximPAPIHook {
                         if (duration != 0) {
                             return TimeUtil.formatTime(formattedTime, duration);
                         } else {
-                            return "&4Inactive";
+                            return GoldenAppleControl.getInstance().getInactiveMsg();
                         }
                     }
                 }
-                return "&4Unavailable";
+                return "Invalid item placeholder!";
             });
         }
         plugin.getLogger().info("Registered placeholders for Maxim's PAPI.");

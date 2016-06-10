@@ -5,7 +5,10 @@
 # | CONFIGURATION |
 # x=x=x=x=x=x=x=x=x
 # Please don't change the config version.
-config-version: 8
+config-version: 9
+
+ignore-cooldowns-in-these-worlds:
+    - "test"
 
 plugin-messages:
     no-permission: "&7[&eGolden&6Apple&fControl&7] &cYou don't have permission."
@@ -21,6 +24,7 @@ plugin-messages:
         - "&5\u2588&6\u2588\u2588\u2588\u2588\u2588\u2588&5\u2588 &eEnchanted golden apple&7:"
         - "&5\u2588&6\u2588\u2588\u2588\u2588\u2588\u2588&5\u2588 &c%goldenapplecontrol_enchantedgapple%"
         - "&5\u2588\u2588&6\u2588\u2588\u2588\u2588&5\u2588\u2588"
+    inactive-cooldown: "&4Inactive"
 
 items:
     whatever-you-want:
