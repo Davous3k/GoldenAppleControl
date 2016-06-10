@@ -100,7 +100,7 @@ public class ConsumeListener implements Listener {
                 }
 
                 // -1 the item count.
-                if (itemInHand.getAmount() >= 1) {
+                if (itemInHand.getAmount() > 1) {
                     itemInHand.setAmount(itemInHand.getAmount() - 1);
                 } else {
                     if (GoldenAppleControl.getInstance().getServerVersion() >= 1.9) {
@@ -111,7 +111,7 @@ public class ConsumeListener implements Listener {
                         }
                     } else {
                         //noinspection deprecation
-                        player.getInventory().setItemInHand(new ItemStack(Material.AIR, 1, (short) 0));
+                        player.getInventory().setItemInHand(new ItemStack(Material.AIR));
                     }
                 }
 
