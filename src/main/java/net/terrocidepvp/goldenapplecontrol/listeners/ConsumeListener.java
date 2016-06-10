@@ -44,6 +44,7 @@ public class ConsumeListener implements Listener {
 
             Optional<CoolDown> coolDown = Optional.ofNullable(item.getCoolDown());
             if (coolDown.isPresent()
+                    && !player.hasPermission("goldenapplecontrol.bypass")
                     && !ListUtil.doesListContain(plugin.getBlockedWorlds(), player.getWorld().getName())) {
 
                 Optional<Map<UUID, Long>> cooldowns = Optional.ofNullable(coolDown.get().getCooldowns());

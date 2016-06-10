@@ -13,3 +13,6 @@ permissions:
     goldenapplecontrol.use:
         description: "Allows you to use '/gapple' to show the remaining cooldown duration."
         default: op
+    goldenapplecontrol.bypass:
+        description: "Allows you to bypass any cooldown."
+        default: op
