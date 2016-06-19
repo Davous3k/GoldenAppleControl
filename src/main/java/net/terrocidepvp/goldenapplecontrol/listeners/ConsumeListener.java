@@ -88,7 +88,8 @@ public class ConsumeListener implements Listener {
                 // Get correct held item based on server version.
                 ItemStack itemInHand;
                 boolean itemInMainHand;
-                if (GoldenAppleControl.getInstance().getServerVersion() >= 1.9) {
+                if (plugin.getServerVersion()[0] == 1
+                        && plugin.getServerVersion()[1] >= 9) {
                     if (player.getInventory().getItemInMainHand().getType() == item.getMaterial()) {
                         itemInHand = player.getInventory().getItemInMainHand();
                         itemInMainHand = true;
@@ -106,7 +107,8 @@ public class ConsumeListener implements Listener {
                 if (itemInHand.getAmount() > 1) {
                     itemInHand.setAmount(itemInHand.getAmount() - 1);
                 } else {
-                    if (GoldenAppleControl.getInstance().getServerVersion() >= 1.9) {
+                    if (plugin.getServerVersion()[0] == 1
+                            && plugin.getServerVersion()[1] >= 9) {
                         if (itemInMainHand) {
                             player.getInventory().setItemInMainHand(new ItemStack(Material.AIR));
                         } else {

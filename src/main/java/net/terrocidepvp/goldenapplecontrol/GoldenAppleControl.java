@@ -6,7 +6,7 @@ import net.terrocidepvp.goldenapplecontrol.hooks.ClipPAPIHook;
 import net.terrocidepvp.goldenapplecontrol.hooks.MaximPAPIHook;
 import net.terrocidepvp.goldenapplecontrol.listeners.ConsumeListener;
 import net.terrocidepvp.goldenapplecontrol.utils.ColorCodeUtil;
-import org.bukkit.Bukkit;
+import net.terrocidepvp.goldenapplecontrol.utils.VersionUtil;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
@@ -19,7 +19,7 @@ public class GoldenAppleControl extends JavaPlugin {
         return instance;
     }
 
-    private double serverVersion;
+    private int[] serverVersion;
     private ItemManager itemManager;
     private ClipPAPIHook clipPAPIHook;
 
@@ -66,8 +66,8 @@ public class GoldenAppleControl extends JavaPlugin {
         blockedWorlds = getConfig().getStringList("ignore-cooldowns-in-these-worlds");
         itemManager = ItemManager.createItemManager(this);
 
-        serverVersion = getMCVersion();
-        getLogger().info("Running server version " + serverVersion);
+        serverVersion = VersionUtil.getMCVersion(getServer().getVersion());
+        getLogger().info("Running server version " + Integer.toString(serverVersion[0]) + "." + Integer.toString(serverVersion[1]));
 
         if (getServer().getPluginManager().isPluginEnabled("MVdWPlaceholderAPI")) {
             getLogger().info("Attempting to register placeholders for Maxim's PAPI...");
@@ -90,15 +90,7 @@ public class GoldenAppleControl extends JavaPlugin {
         new ConsumeListener(this);
     }
 
-    private double getMCVersion() {
-        String version = Bukkit.getVersion();
-        int pos = version.indexOf("(MC: ");
-        String newVersion = version.substring(pos + 5).replace(")", "");
-        String[] splitVersion = newVersion.split("\\.");
-        return Double.parseDouble(splitVersion[0] + "." + splitVersion[1]);
-    }
-
-    public double getServerVersion() {
+    public int[] getServerVersion() {
         return serverVersion;
     }
 
