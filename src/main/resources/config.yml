@@ -5,7 +5,7 @@
 # | CONFIGURATION |
 # x=x=x=x=x=x=x=x=x
 # Please don't change the config version.
-config-version: 9
+config-version: 10
 
 ignore-cooldowns-in-these-worlds:
     - "test"
@@ -27,10 +27,10 @@ plugin-messages:
     inactive-cooldown: "&4Inactive"
 
 items:
-    whatever-you-want:
+    regular-golden-apple:
         material: GOLDEN_APPLE
         data: 0
-        permission: "goldenapplecontrol.randomperm"
+        permission: "goldenapplecontrol.gapple"
         cooldown:
             enabled: true
             duration: 30
@@ -59,10 +59,10 @@ items:
             - ABSORPTION:2400:0
             - REGENERATION:100:1
 
-    make-sure-its-not-already-used:
+    enchanted-golden-apple:
         material: GOLDEN_APPLE
         data: 1
-        permission: "idont.reallycare.anymore"
+        permission: "goldenapplecontrol.egapple"
         cooldown:
             enabled: true
             duration: 30

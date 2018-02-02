@@ -44,10 +44,10 @@ public class GoldenAppleControl extends JavaPlugin {
             return;
         }
 
-        int configVersion = 9;
+        int configVersion = 10;
         /*
-         Updated for: World bypass and Inactive string for placeholders
-         Release: v2.0.3
+         Updated for: Made config more simple
+         Release: v2.1.0
         */
         if (getConfig().getInt("config-version") != configVersion) {
             getLogger().severe("Your config is outdated!");
